@@ -9,7 +9,7 @@ cnxpool = mysql.connector.pooling.MySQLConnectionPool(user="root", password="roo
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
-
+app.json.ensure_ascii = False
 # Pages
 @app.route("/")
 def index():
