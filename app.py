@@ -31,7 +31,7 @@ def attraction_(attractionId):
 	try:
 		con=cnxpool.get_connection()
 		cursor = con.cursor(dictionary=True)
-		cursor.execute("SELECT attractions.id, attractions.name, attractions.category, attractions.description, attractions.address, attractions.transport, attractions.mrt, attractions.lat, attractions.lng, group_concat(images.path separator ',') AS images FROM attractions INNER JOIN images on attractions.id = images.image_id WHERE attractions.id = %s GROUP BY attractions.id ",(attractionId,),)
+		cursor.execute("SELECT attractions.id, attractions.name, attractions.category, attractions.description, attractions.address, attractions.transport, attractions.mrt, attractions.lat, attractions.lng, group_concat(DISTINCT images.path separator ',') AS images FROM attractions INNER JOIN images on attractions.id = images.image_id WHERE attractions.id = %s GROUP BY attractions.id ",(attractionId,),)
 		data = cursor.fetchone()
 		image = data["images"].split(",")
 		result = {
@@ -93,7 +93,7 @@ def attractions():
 		try:
 			con=cnxpool.get_connection()
 			cursor = con.cursor(dictionary=True)
-			cursor.execute("SELECT attractions.id, attractions.name, attractions.category, attractions.description, attractions.address, attractions.transport, attractions.mrt, attractions.lat, attractions.lng, group_concat(images.path separator ',') AS images FROM attractions INNER JOIN images on attractions.id = images.image_id GROUP BY attractions.id LIMIT %s,%s",(page*12, 12),)
+			cursor.execute("SELECT attractions.id, attractions.name, attractions.category, attractions.description, attractions.address, attractions.transport, attractions.mrt, attractions.lat, attractions.lng, group_concat(DISTINCT images.path separator ',') AS images FROM attractions INNER JOIN images on attractions.id = images.image_id GROUP BY attractions.id LIMIT %s,%s",(page*12, 12),)
 			data = cursor.fetchall()
 			results=[]
 			for i in range(0,len(data)):
@@ -116,7 +116,11 @@ def attractions():
 			else:
 				nextpage = page+1    
 			if data:
-				response = make_response(jsonify({"nextpage":nextpage,"data":results}), 200)
+				response = make_response(jsonify({"nextPage":nextpage,"data":results}), 200)
+				response.headers["Content-type"] = "application/json"
+				return response
+			else:
+				response = make_response(jsonify({"nextPage":0,"data":None}), 200)
 				response.headers["Content-type"] = "application/json"
 				return response
 		except:
@@ -132,7 +136,7 @@ def attractions():
 		try:
 			con=cnxpool.get_connection()
 			cursor = con.cursor(dictionary=True)
-			cursor.execute("SELECT attractions.id, attractions.name, attractions.category, attractions.description, attractions.address, attractions.transport, attractions.mrt, attractions.lat, attractions.lng, group_concat(images.path separator ',') AS images FROM attractions INNER JOIN images on attractions.id = images.image_id WHERE attractions.mrt = %s or attractions.name LIKE '%"+ keyword + "%' GROUP BY attractions.id LIMIT %s,%s",(keyword, page*12, 12),)
+			cursor.execute("SELECT attractions.id, attractions.name, attractions.category, attractions.description, attractions.address, attractions.transport, attractions.mrt, attractions.lat, attractions.lng, group_concat(DISTINCT images.path separator ',') AS images FROM attractions INNER JOIN images on attractions.id = images.image_id WHERE attractions.mrt = %s or attractions.name LIKE '%"+ keyword + "%' GROUP BY attractions.id LIMIT %s,%s",(keyword, page*12, 12),)
 			data = cursor.fetchall()
 			results=[]
 			for i in range(0,len(data)):
@@ -155,11 +159,15 @@ def attractions():
 			else:
 				nextpage = page+1
 			if data:
-				response = make_response(jsonify({"nextpage":nextpage,"data":results}), 200)
+				response = make_response(jsonify({"nextPage":nextpage,"data":results}), 200)
 				response.headers["Content-type"] = "application/json"
 				return response
 			else:
-				return {
+				response = make_response(jsonify({"nextPage":nextpage,"data":None}), 200)
+				response.headers["Content-type"] = "application/json"
+				return response
+		except:
+			return {
 				"error": True,
 				"message": "伺服器內部錯誤"
 			}, 500
