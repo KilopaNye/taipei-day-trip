@@ -9,6 +9,7 @@ function leftScroll() {
     let containerWidth = container.offsetWidth;
     container.scrollLeft -= containerWidth;
 };
+
 let page = 0;
 
 fetch("/api/attractions").then(response => response.json()).then(data => {
@@ -141,12 +142,11 @@ let loadMore = function () {
     };
 };
 
-window.addEventListener("scroll", () => {
-    if (page != null) {
-        if (window.scrollY + window.screen.height >= document.body.scrollHeight+50) {
-            loadMore();
-        };
-    };
+document.addEventListener("scrollend", function () {
+    // 在元素滾動到頁面底部時，載入更多內容
+    if (window.scrollY + window.screen.height >= document.body.scrollHeight) {
+        loadMore();
+    }
 });
 
 //測試load more用按鈕
@@ -267,7 +267,7 @@ function keywords() {
                 viewClassDiv.textContent = data["data"][x]["category"]
                 imgBottom.appendChild(viewClassDiv);
             }
-        }else{
+        } else {
             alert("查無資料");
         }
     }).catch(error => {
