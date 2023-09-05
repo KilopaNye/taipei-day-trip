@@ -37,7 +37,6 @@ fetch("/api/attractions").then(response => response.json()).then(data => {
         let opacityDiv = document.createElement("div");
         opacityDiv.classList.add("opacity")
         image.appendChild(opacityDiv);
-        // image.appendChild(opacityDiv);
         //創建attraction-name
         let attractionNameDiv = document.createElement("div");
         attractionNameDiv.classList.add("attraction-name");
