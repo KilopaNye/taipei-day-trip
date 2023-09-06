@@ -35,9 +35,9 @@ with open("taipei-attractions.json", "r", encoding="utf-8") as file:
         for x in range(1,len(data)):
             if data[x][-3:]=="jpg" or data[x][-3:]=="JPG" or data[x][-3:]=="png" or data[x][-3:]=="PNG":
                 path.append("https"+data[x])
-            for item in path:
-                cursor.execute(
-                "insert into images(image_id, path) values(%s,%s)",(num,item,),)
-                con.commit()
+        for item in path:
+            cursor.execute(
+            "insert into images(image_id, path) values(%s,%s)",(num,item,),)
+            con.commit()
         # for x in path:
         #     print(x)

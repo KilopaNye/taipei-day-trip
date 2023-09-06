@@ -84,11 +84,10 @@ def mrt():
 		cursor.close()
 		con.close()
 
-
 @app.route("/api/attractions", methods=["GET"])
 def attractions():
 	page=int(request.args.get("page", 0))
-	keyword = request.args.get('keyword')
+	keyword = request.args.get('keyword', 0)
 	if not keyword:
 		try:
 			con=cnxpool.get_connection()
@@ -120,9 +119,13 @@ def attractions():
 				response.headers["Content-type"] = "application/json"
 				return response
 			else:
-				response = make_response(jsonify({"nextPage":0,"data":None}), 200)
+				response = make_response(jsonify({"nextPage":0,"data":"null"}), 200)
 				response.headers["Content-type"] = "application/json"
 				return response
+		except ValueError:
+			response = make_response(jsonify({"nextPage":0,"data":"null"}), 400)
+			response.headers["Content-type"] = "application/json"
+			return response
 		except:
 			return {
 				"error": True,
@@ -163,7 +166,7 @@ def attractions():
 				response.headers["Content-type"] = "application/json"
 				return response
 			else:
-				response = make_response(jsonify({"nextPage":nextpage,"data":None}), 200)
+				response = make_response(jsonify({"nextPage":nextpage,"data":"null"}), 200)
 				response.headers["Content-type"] = "application/json"
 				return response
 		except:
