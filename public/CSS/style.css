@@ -150,7 +150,7 @@ img {
 }
 main {
     margin-top: 40px;
-    min-height: 600px;
+    min-height: 800px;
 }
 
 .display-flex {
@@ -234,15 +234,15 @@ footer {
     max-width: 1200px;
     height: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 40px;
 }
-/* @media (max-width:1200px){
+@media (max-width:1200px){
     .images-box {
-        
+        justify-content: space-evenly;
     }
-} */
+}
 .attraction {
     width: 268px;
     border-radius: 5px;
