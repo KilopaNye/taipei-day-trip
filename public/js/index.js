@@ -1,17 +1,16 @@
 function rightScroll() {
     let container = document.querySelector(".container");
     let containerWidth = container.offsetWidth;
-    container.scrollLeft += containerWidth;
+    container.scrollLeft += containerWidth - 40;
 };
 
 function leftScroll() {
     let container = document.querySelector(".container");
     let containerWidth = container.offsetWidth;
-    container.scrollLeft -= containerWidth;
+    container.scrollLeft -= containerWidth - 40;
 };
 
 let page = 0;
-console.log(page+"wwwwwwwwwwwwwwwwwwwwwwwwww")
 
 fetch("/api/attractions").then(response => response.json()).then(data => {
     console.log("讀取成功", data);
@@ -86,7 +85,7 @@ let loadMore = function () {
     pageGet = page;
     if (pageGet != null) {
         let pageNum = pageGet;
-        fetch(`/api/attractions?page=${pageNum}&keyword=${keyword}`).then(response => response.json()).then(data => {
+        fetch(`/api/attractions?page=${ pageNum }&keyword=${ keyword }`).then(response => response.json()).then(data => {
             console.log(keyword)
             console.log("讀取成功", data);
             setNum = page * 12;
@@ -160,11 +159,12 @@ let next = function () {
 //捷運站按鈕
 function keywordSearch(key) {
     keyword = key.textContent;
-    console.log(keyword)
+    console.log(keyword);
     let placeholder = document.querySelector(".search")
     placeholder.value = keyword;
     fetch(`/api/attractions?keyword=${keyword}`).then(response => response.json()).then(data => {
         console.log("讀取成功", data);
+        page = data["nextPage"];
         mrtPage = data["nextPage"];
         setNum = page * 12;
         dataLength = data["data"].length;

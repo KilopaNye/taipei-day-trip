@@ -122,6 +122,10 @@ def attractions():
 				response = make_response(jsonify({"nextPage":0,"data":"null"}), 200)
 				response.headers["Content-type"] = "application/json"
 				return response
+		except ValueError:
+			response = make_response(jsonify({"nextPage":0,"data":"null"}), 400)
+			response.headers["Content-type"] = "application/json"
+			return response
 		except:
 			return {
 				"error": True,
