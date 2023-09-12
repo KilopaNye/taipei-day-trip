@@ -172,12 +172,12 @@ let loadMore = function () {
         };
     }
 };
-    document.addEventListener("scrollend", function () {
-        // 在元素滾動到頁面底部時，載入更多內容
-        if (window.scrollY + window.screen.height >= document.body.scrollHeight) {
-            loadMore();
-        };
-    });
+document.addEventListener("scrollend", function () {
+    // 在元素滾動到頁面底部時，載入更多內容
+    if (window.scrollY + window.screen.height >= document.body.scrollHeight) {
+        loadMore();
+    };
+});
 
 //測試load more用按鈕
 let next = function () {
