@@ -135,6 +135,11 @@ section{
     display: flex;
     justify-content: center;
 }
+@media (max-width:1200px){
+    .gray-line-flex{
+        margin: 0px 10px;
+    }
+}
 .gray-line{
     width: 1200px;
     opacity: 0.3;
@@ -143,7 +148,7 @@ section{
 }
 
 .view-title{
-    font-size: 24px;font-weight: bold;padding-bottom: 20px;
+    font-size: 24px;font-weight: bold;padding-bottom: 15px;
 }
 @media (max-width:1250px){
     .view-title{
@@ -220,7 +225,7 @@ section{
     }
 }
 .booking-text{
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     font-weight: bold;
     color: #666;
     display: flex;
@@ -325,6 +330,8 @@ section{
 .image-box{
     overflow: hidden;
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 .images{
     width: 540px;

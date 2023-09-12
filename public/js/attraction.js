@@ -132,7 +132,7 @@ function rightArrow() {
         second = box - 1;
         //將最後一位的顯示清空
         let leftImg = document.querySelector(".image-" + second)
-        leftImg.style.display = "block";
+        leftImg.style.display = "none";
         let circle_left = document.querySelector(".circle-" + second)
         circle_left.src="/public/images/w_circle.png"
 
