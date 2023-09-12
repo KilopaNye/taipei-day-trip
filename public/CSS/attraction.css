@@ -247,6 +247,11 @@ section{
         margin-bottom: 10px;
     }
 }
+@media (max-width:600px){
+    .go-btn {
+        margin-top: 20px;
+    }
+}
 .infor-flex{
     display: flex;
     justify-content: center;

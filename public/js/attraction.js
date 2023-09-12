@@ -5,34 +5,36 @@ let length_URL = url.split("/");
 let attraction_id = length_URL.pop();
 
 function GoHome() {
-    window.location.href = "/"
-}
+    window.location.href = "/";
+};
 function check_top() {
     let check_bottom = document.querySelector("#check-bottom");
     let check_top = document.querySelector("#check-top");
     let money = document.querySelector(".money");
-    if (check_top.src == "http://127.0.0.1:3000/public//images/radio.png") {
-        check_top.src = "http://127.0.0.1:3000/public//images/radio_ok.png";
-        check_bottom.src = "http://127.0.0.1:3000/public//images/radio.png"
-        money.innerHTML = "新台幣 2000 元"
+    let check_src=check_top.src.split("/");
+    if (check_src.pop() == "radio.png") {
+        check_top.src = "/public/images/radio_ok.png";
+        check_bottom.src = "/public/images/radio.png";
+        money.innerHTML = "新台幣 2000 元";
     } else {
-        check_top.src = "http://127.0.0.1:3000/public//images/radio.png";
-        money.innerHTML = "尚未選擇行程"
+        check_top.src = "/public/images/radio.png";
+        money.innerHTML = "尚未選擇行程";
     };
-}
+};
 function check_bottom() {
     let check_bottom = document.querySelector("#check-bottom");
     let check_top = document.querySelector("#check-top");
     let money = document.querySelector(".money");
-    if (check_bottom.src == "http://127.0.0.1:3000/public//images/radio.png") {
-        check_bottom.src = "http://127.0.0.1:3000/public//images/radio_ok.png";
-        check_top.src = "http://127.0.0.1:3000/public//images/radio.png"
-        money.innerHTML = "新台幣 2500 元"
+    let check_src=check_bottom.src.split("/");
+    if (check_src.pop() == "radio.png") {
+        check_bottom.src = "/public/images/radio_ok.png";
+        check_top.src = "/public/images/radio.png";
+        money.innerHTML = "新台幣 2500 元";
     } else {
-        check_bottom.src = "http://127.0.0.1:3000/public//images/radio.png";
-        money.innerHTML = "尚未選擇行程"
+        check_bottom.src = "/public/images/radio.png";
+        money.innerHTML = "尚未選擇行程";
     };
-}
+};
 
 fetch(`/api/attraction/${attraction_id}`).then(response => response.json()).then(data => {
     console.log("讀取成功", data);
