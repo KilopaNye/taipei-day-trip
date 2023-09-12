@@ -95,10 +95,11 @@ fetch("/api/mrts").then(response => response.json()).then(mrtdatas => {
     console.error("發生錯誤", error);
 });
 
-
+let door=1;
 let keyword = "";
 let loadMore = function () {
     pageGet = page;
+    door=0;
     if (pageGet != null) {
         let pageNum = pageGet;
         fetch(`/api/attractions?page=${pageNum}&keyword=${keyword}`).then(response => response.json()).then(data => {
@@ -157,22 +158,25 @@ let loadMore = function () {
                 viewClassDiv.textContent = data["data"][x]["category"]
                 imgBottom.appendChild(viewClassDiv);
             }
+            door = 1;
         }).catch(error => {
             console.error("發生錯誤", error);
         });
     }
-
     else {
         return;
     };
 };
+if (door == 1) {
+    document.addEventListener("scrollend", function () {
+        // 在元素滾動到頁面底部時，載入更多內容
+        if (window.scrollY + window.screen.height >= document.body.scrollHeight) {
+            loadMore();
+            
+        };
+    });
+};
 
-document.addEventListener("scrollend", function () {
-    // 在元素滾動到頁面底部時，載入更多內容
-    if (window.scrollY + window.screen.height >= document.body.scrollHeight) {
-        loadMore();
-    }
-});
 
 //測試load more用按鈕
 let next = function () {
