@@ -1,0 +1,361 @@
+body {
+    /*重製邊界*/
+    margin: 0;
+    padding: 0;
+}
+div {
+    margin: 0px;
+    font-family:  "Noto Sans TC",Arial,sans-serif;
+    color: #666;
+}
+img {
+    /*去除img底下的白邊*/
+    display: block;
+}
+
+.display-flex{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 104px;
+    background-color: #757575;
+    color: #FFFFFF;
+    font-family:  "Noto Sans TC",Arial,sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 13.3px;
+}
+.navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 54px;
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    margin-bottom: 54px;
+    z-index: 5;
+    border-bottom-style: solid; border-color: #f3f3f3; border-width: 0.1px;
+}
+@media (max-width:600px){
+    .navigation{
+        margin-bottom: 0px;
+    }
+}
+.nav-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px;
+    height: 34px;
+    background-color: white;
+}
+.Frame-2 {
+    display: flex;
+    justify-content: end;
+}
+.Frame-1 {
+    display: flex;
+}
+.button {
+    border-width:0 ;
+    padding: 10px;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 13.3px;
+    background-color: #FFFFFF;
+    color: #666666;
+    cursor: pointer;
+}
+.text-taipei {
+    color: var(--primary-color-cyan-70, #489);
+    font-family: "Noto Sans TC",Arial,sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    line-height: 34px;
+    font-weight: bold;
+    cursor: pointer;
+}
+@media (max-width:1250px){
+    .text-taipei {
+        padding: 10px;
+    }
+}
+
+
+section{
+    margin-top: 94px;
+    height: 400px; max-width: 1200px;width: 100%;
+    display: flex; justify-content: center;
+    color: #666;
+}
+@media (max-width:600px){
+    section {
+        flex-wrap: wrap;
+        height: auto;
+        margin-top: 52px;
+    }
+}
+.image-box{
+    width: 540px; height: 400px;
+    margin: 0px 15px;
+    background-color: #757575;
+    border-radius: 5px;
+}
+@media (max-width:1250px){
+    .image-box{
+        height: auto;
+    }
+}
+@media (max-width:600px){
+    .image-box{
+        height: 350px;
+        width: 466px;
+        margin: 0 0 20px 0;
+    }
+}
+.text-box{
+    width: 600px; height: 100%;
+    margin: 0px 15px;
+}
+@media (max-width:1250px){
+    .text-box{
+        width: 500px;
+    }
+}
+.gray-line-flex{
+    display: flex;
+    justify-content: center;
+}
+.gray-line{
+    width: 1200px;
+    opacity: 0.3;
+    margin: 40px 0 40px 0;
+    
+}
+
+.view-title{
+    font-size: 24px;font-weight: bold;padding-bottom: 20px;
+}
+@media (max-width:1250px){
+    .view-title{
+        padding-bottom: 10px;
+    }
+}
+.view-text{
+    padding-bottom: 15px;
+}
+.booking{
+    background-color: #E8E8E8;
+    border-radius: 5px;
+    padding: 15px 20px 10px 20px;
+}
+@media (max-width:1250px){
+    .booking {
+        min-height: 250px;
+        height: auto;
+    }
+}
+@media (max-width:600px){
+    .booking {
+        min-height: 250px;
+        height: 300px;
+    }
+}
+.check-box{
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #666;
+    display: flex;
+}
+@media (max-width:1250px){
+    .check-box {
+        display:unset;
+    }
+}
+@media (max-width:600px){
+    .check-box {
+        display:flex;
+    }
+}
+.check-flex{
+    display: flex;
+    margin: 0px 8px;;
+    cursor: pointer;
+    user-select: none;
+}
+@media (max-width:1250px){
+    .check-flex {
+        margin-top: 5px
+    }
+}
+.date{
+    outline: none;
+    border: none;
+    width: 180px;
+    padding: 5px 5px 5px 10px; margin-left: 5px;
+    font-weight: bold;
+    color: black;
+    font-size: 16px;
+    user-select: none;
+}
+@media (max-width:1250px){
+    .date{
+        width: 100px;
+        font-size: 10px;
+    }
+}
+@media (max-width:600px){
+    .date{
+        width: 180px;
+        font-size: 16px;
+    }
+}
+.booking-text{
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #666;
+    display: flex;
+}
+@media (max-width:1250px){
+    .booking-text {
+        margin-bottom: 5px;
+        display:flexbox;
+    }
+}
+.go-btn{
+    padding: 10px 20px; margin-bottom: 20px;
+    background-color: #489;
+    width:max-content;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 19px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+@media (max-width:1250px){
+    .go-btn {
+        margin-bottom: 10px;
+    }
+}
+.infor-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.infor{
+    width: 100%;
+    max-width: 1200px;
+}
+@media (max-width:1250px){
+    .infor {
+        padding: 0px 20px;
+    }
+}
+.infor-text{
+    margin: 0px 10px 0px 10px;
+    background-color: #FFFFFF;
+    line-height: 23px;
+}
+@media (max-width:1250px){
+    .infor-text {
+        margin: 0;
+    }
+}
+.point{
+    margin: 20px 10px 10px 10px;background-color: #FFFFFF;
+    height: 32px;
+    line-height: 23px;
+}
+@media (max-width:1250px){
+    .point {
+        margin: 20px 0 0px 0;
+    }
+}
+.point-text{
+    padding-left: 10px;
+    line-height: 23px;
+}
+@media (max-width:1250px){
+    .point-text {
+        padding-left: 0px;
+    }
+}
+.traffic{
+    margin: 20px 10px 0px 10px;background-color: #FFFFFF;
+    font-weight: bold;
+    height: 32px;
+    line-height: 23px;
+}
+@media (max-width:1250px){
+    .traffic {
+        margin: 20px 10px 0px 0px;
+    }
+}
+.traffic-text{
+    margin: 0px 10px 80px 10px;background-color: #FFFFFF;
+    line-height: 23px;
+}
+@media (max-width:1250px){
+    .traffic-text {
+        margin: 0px 10px 0px 0px;
+    }
+}
+
+
+
+
+.image-box{
+    overflow: hidden;
+    position: relative;
+}
+.images{
+    width: 540px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.leftArrow{
+    position: absolute; left: 10px; top:45%;
+    opacity: 0.7;
+    width: 36px; height: 36px;
+    cursor: pointer;
+}
+.leftArrow:hover{
+    opacity: 1;
+}
+.rightArrow{
+    position: absolute; right: 10px; top:45%;
+    opacity: 0.7;
+    width: 36px; height: 36px;
+    cursor: pointer;
+}
+.rightArrow:hover{
+    opacity: 1;
+}
+.circle-flex{
+    width: 115px;height: 20px;
+    transform: translateX(50%);
+    position: absolute;bottom: 13px;right: 50%;
+    display: flex;
+    justify-content: center;
+    padding-left: 12px;
+}
+.circle{
+    color: #489;
+    width: 12px;height: 12px;
+    margin-right: 12px;
+    cursor: pointer;
+}

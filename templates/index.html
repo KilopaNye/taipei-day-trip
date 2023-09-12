@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="CSS/style.css">
-    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="/public/CSS/style.css">
+    <script src="/public/js/index.js"></script>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <navigation class="navigation">
         <div class="nav-box">
             <div class="Frame-2">
-                <div class="text-taipei">台北一日遊</div>
+                <div class="text-taipei" onclick="GoHome();">台北一日遊</div>
             </div>
             <div class="Frame-1">
                 <button class="button">預定行程</button>
@@ -41,11 +41,11 @@
     <main>
         <div class="display-flex">
             <div class="list-bar">
-                <div class="arrow-flex"><img src="/images/leftArrow.png" class="arrow-left" onclick="leftScroll();">
+                <div class="arrow-flex"><img src="/public/images/leftArrow.png" class="arrow-left" onclick="leftScroll();">
                 </div>
                 <div class="container"></div>
                 <div class="arrow-flex">
-                    <image src="/images/rightArrow.png" class="arrow-right" onclick="rightScroll();"></image>
+                    <image src="/public/images/rightArrow.png" class="arrow-right" onclick="rightScroll();"></image>
                 </div>
             </div>
         </div>

@@ -12,16 +12,6 @@ function leftScroll() {
 
 let page = 0;
 
-function GoBooking(set_id) {
-    let id = set_id.querySelector(".hide-id").textContent;
-    console.log(id)
-    window.location.href = `/attraction/${id}`
-}
-function GoHome() {
-    window.location.href = "/"
-}
-
-
 fetch("/api/attractions").then(response => response.json()).then(data => {
     console.log("讀取成功", data);
     page = data["nextPage"];
@@ -32,16 +22,10 @@ fetch("/api/attractions").then(response => response.json()).then(data => {
         let firstDiv = document.createElement("div");
         firstDiv.classList.add("attraction", "box" + i);
         firstFa.appendChild(firstDiv);
-        let hidden = document.createElement("div");
-        hidden.classList.add("hide-id");
-        hidden.textContent = data["data"][i]["id"]
-        firstDiv.appendChild(hidden);
-        firstDiv.setAttribute("onclick", "GoBooking(this);");
-        firstFa.appendChild(firstDiv)
         //創建image
         let image = document.querySelector(".box" + i);
         let imageDiv = document.createElement("img");
-        imageDiv.classList.add("image");
+        imageDiv.classList.add("image", "imagesNum" + i);
         image.appendChild(imageDiv);
         //創建attraction-img
         let attractionImgDiv = document.createElement("img");
@@ -101,7 +85,7 @@ let loadMore = function () {
     pageGet = page;
     if (pageGet != null) {
         let pageNum = pageGet;
-        fetch(`/api/attractions?page=${pageNum}&keyword=${keyword}`).then(response => response.json()).then(data => {
+        fetch(`/api/attractions?page=${ pageNum }&keyword=${ keyword }`).then(response => response.json()).then(data => {
             console.log(keyword)
             console.log("讀取成功", data);
             setNum = page * 12;
@@ -115,12 +99,6 @@ let loadMore = function () {
                 let firstDiv = document.createElement("div");
                 firstDiv.classList.add("attraction", "box" + i);
                 firstFa.appendChild(firstDiv);
-                let hidden = document.createElement("div");
-                hidden.classList.add("hide-id");
-                hidden.textContent = data["data"][x]["id"]
-                firstDiv.appendChild(hidden);
-                firstDiv.setAttribute("onclick", "GoBooking(this);");
-                firstFa.appendChild(firstDiv)
                 //創建image
                 let image = document.querySelector(".box" + i);
                 let imageDiv = document.createElement("img");
@@ -200,12 +178,6 @@ function keywordSearch(key) {
             let firstDiv = document.createElement("div");
             firstDiv.classList.add("attraction", "box" + i);
             firstFa.appendChild(firstDiv);
-            let hidden = document.createElement("div");
-            hidden.classList.add("hide-id");
-            hidden.textContent = data["data"][i]["id"]
-            firstDiv.appendChild(hidden);
-            firstDiv.setAttribute("onclick", "GoBooking(this);");
-            firstFa.appendChild(firstDiv)
             //創建image
             let image = document.querySelector(".box" + i);
             let imageDiv = document.createElement("img");
@@ -257,7 +229,7 @@ function keywords() {
         console.log("讀取成功", searchData);
         if (searchData["data"] != "null") {
             setNum = nextPage * 12;
-            nextPage, page = searchData["nextPage"];
+            nextPage,page = searchData["nextPage"];
             dataLength = searchData["data"].length;
             let photoBox = document.querySelector(".images-box");
             photoBox.innerHTML = "";
@@ -269,12 +241,6 @@ function keywords() {
                 let firstDiv = document.createElement("div");
                 firstDiv.classList.add("attraction", "box" + i);
                 firstFa.appendChild(firstDiv);
-                let hidden = document.createElement("div");
-                hidden.classList.add("hide-id");
-                hidden.textContent = searchData["data"][x]["id"]
-                firstDiv.appendChild(hidden);
-                firstDiv.setAttribute("onclick", "GoBooking(this);");
-                firstFa.appendChild(firstDiv)
                 //創建image
                 let image = document.querySelector(".box" + i);
                 let imageDiv = document.createElement("img");
@@ -318,5 +284,4 @@ function keywords() {
         console.error("發生錯誤", error);
     });
 };
-
 
