@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/attraction.css')}}">
+    <script src="{{url_for('static',filename='js/attraction.js')}}"></script> -->
+    <link rel="stylesheet" href="/public/CSS/attraction.css">
+    <script src="/public/js/attraction.js"></script>
+</head>
+<body>
+    <navigation class="navigation">
+        <div class="nav-box">
+            <div class="Frame-2">
+                <div class="text-taipei" onclick="GoHome();">台北一日遊</div>
+            </div>
+            <div class="Frame-1">
+                <button class="button">預定行程</button>
+                <button class="button">登入/註冊</button>
+            </div>
+        </div>
+        </div>
+    </navigation>
+    <div class="display-flex">
+        <section>
+            <div class="image-box"><div class="circle-flex"></div><img class="leftArrow" src="/public/images/leftArrow.png" onclick="leftArrow();"><img class="rightArrow" src="/public/images/rightArrow.png" onclick="rightArrow();"></div>
+            <div class="text-box">
+                <div class="view-title"></div>
+                <div class="view-text"></div>
+                <div class="booking">
+                    <div style="font-weight: bold; margin-bottom: 15px;">訂購導覽行程</div>
+                    <div style="margin-bottom: 15px;color:#666;">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+                    <div class="booking-text">選擇日期：<input type="date" class="date"></div>
+                    <div class="check-box">選擇時間：
+                    <div class="check-flex" onclick="check_top();"><img src="/public//images/radio.png" id="check-top"  style="padding-right: 5px;">上半天</div>
+                    <div class="check-flex" onclick="check_bottom();"><img src="/public//images/radio.png" id="check-bottom"  style="padding-right: 5px;">下半天</div>
+                    </div>
+                    <div class="booking-text">導覽費用： <span class="booking-text money">尚未選擇行程</span></div>
+                    <div class="go-btn">開始預約行程</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="gray-line-flex"><hr class="gray-line"></div>
+    
+    <div class="infor-flex">
+        <div class="infor">
+            <div class="infor-text"></div>
+            <div class="point booking-text">景點地址：</div>
+            <div class="point-text"></div>
+            <div class="traffic booking-text" >交通方式：</div>
+            <div class="traffic-text"></div>
+        </div>
+    </div>
+    
+    
+    <footer>COPYRIGHT © 2021 台北一日遊</footer>
+</body>
+</html>

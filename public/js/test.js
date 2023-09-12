@@ -12,20 +12,9 @@ function leftScroll() {
 
 let page = 0;
 
-function GoBooking(set_id) {
-    let id = set_id.querySelector(".hide-id").textContent;
-    console.log(id)
-    window.location.href = `/attraction/${id}`
-}
-function GoHome() {
-    window.location.href = "/"
-}
-
-let door = 0;
 fetch("/api/attractions").then(response => response.json()).then(data => {
     console.log("讀取成功", data);
     page = data["nextPage"];
-
     for (let i = 0; i < 12; i++) {
         //選擇父層
         let firstFa = document.querySelector(".images-box");
@@ -33,16 +22,10 @@ fetch("/api/attractions").then(response => response.json()).then(data => {
         let firstDiv = document.createElement("div");
         firstDiv.classList.add("attraction", "box" + i);
         firstFa.appendChild(firstDiv);
-        let hidden = document.createElement("div");
-        hidden.classList.add("hide-id");
-        hidden.textContent = data["data"][i]["id"]
-        firstDiv.appendChild(hidden);
-        firstDiv.setAttribute("onclick", "GoBooking(this);");
-        firstFa.appendChild(firstDiv)
         //創建image
         let image = document.querySelector(".box" + i);
         let imageDiv = document.createElement("img");
-        imageDiv.classList.add("image");
+        imageDiv.classList.add("image", "imagesNum" + i);
         image.appendChild(imageDiv);
         //創建attraction-img
         let attractionImgDiv = document.createElement("img");
@@ -75,8 +58,6 @@ fetch("/api/attractions").then(response => response.json()).then(data => {
         viewClassDiv.textContent = data["data"][i]["category"]
         imgBottom.appendChild(viewClassDiv);
     }
-    door = 1;
-    console.log(door)
 }).catch(error => {
     console.error("發生錯誤", error);
 });
@@ -101,82 +82,74 @@ fetch("/api/mrts").then(response => response.json()).then(mrtdatas => {
 
 let keyword = "";
 let loadMore = function () {
-    if (door === 1) {
-        door = 0;
-        if (page != null) {
-            let pageNum = page;
-            fetch(`/api/attractions?page=${pageNum}&keyword=${keyword}`).then(response => response.json()).then(data => {
-                console.log(keyword)
-                console.log("讀取成功", data);
-                setNum = page * 12;
-                page = data["nextPage"];
-                console.log(page)
-                dataLength = data["data"].length;
-                for (let x = 0; x < dataLength; x++) {
-                    i = x + setNum;
-                    //選擇父層
-                    let firstFa = document.querySelector(".images-box");
-                    //創建attraction
-                    let firstDiv = document.createElement("div");
-                    firstDiv.classList.add("attraction", "box" + i);
-                    firstFa.appendChild(firstDiv);
-                    let hidden = document.createElement("div");
-                    hidden.classList.add("hide-id");
-                    hidden.textContent = data["data"][x]["id"]
-                    firstDiv.appendChild(hidden);
-                    firstDiv.setAttribute("onclick", "GoBooking(this);");
-                    firstFa.appendChild(firstDiv)
-                    //創建image
-                    let image = document.querySelector(".box" + i);
-                    let imageDiv = document.createElement("img");
-                    imageDiv.classList.add("image", "imagesNum" + i)
-                    image.appendChild(imageDiv);
-                    //創建attraction-img
-                    let attractionImgDiv = document.createElement("img");
-                    attractionImgDiv.classList.add("attraction-img");
-                    image.appendChild(attractionImgDiv);
-                    attractionImgDiv.src = data["data"][x]["images"][0];
-                    image.appendChild(attractionImgDiv);
-                    //創建opacity
-                    let opacityDiv = document.createElement("div");
-                    opacityDiv.classList.add("opacity");
-                    image.appendChild(opacityDiv);
-                    //創建attraction-name
-                    let attractionNameDiv = document.createElement("div");
-                    attractionNameDiv.classList.add("attraction-name");
-                    attractionNameDiv.textContent = data["data"][x]["name"];
-                    image.appendChild(attractionNameDiv);
-                    //創建img-bottom
-                    let imgBottom = document.querySelector(".box" + i);
-                    let imgBottomDiv = document.createElement("div");
-                    imgBottomDiv.classList.add("img-bottom");
-                    imgBottom.appendChild(imgBottomDiv);
-                    //創建mrt-name
-                    let mrtNameDiv = document.createElement("div");
-                    mrtNameDiv.classList.add("mrt-name")
-                    mrtNameDiv.textContent = data["data"][x]["mrt"]
-                    imgBottom.appendChild(mrtNameDiv);
-                    //創建view-class
-                    let viewClassDiv = document.createElement("div");
-                    viewClassDiv.classList.add("view-class");
-                    viewClassDiv.textContent = data["data"][x]["category"]
-                    imgBottom.appendChild(viewClassDiv);
-                }
-            door = 1;
-            }).catch(error => {
-                console.error("發生錯誤", error);
-            });
-        }
-        else {
-            return;
-        };
+    pageGet = page;
+    if (pageGet != null) {
+        let pageNum = pageGet;
+        fetch(`/api/attractions?page=${ pageNum }&keyword=${ keyword }`).then(response => response.json()).then(data => {
+            console.log(keyword)
+            console.log("讀取成功", data);
+            setNum = page * 12;
+            page = data["nextPage"];
+            dataLength = data["data"].length;
+            for (let x = 0; x < dataLength; x++) {
+                i = x + setNum;
+                //選擇父層
+                let firstFa = document.querySelector(".images-box");
+                //創建attraction
+                let firstDiv = document.createElement("div");
+                firstDiv.classList.add("attraction", "box" + i);
+                firstFa.appendChild(firstDiv);
+                //創建image
+                let image = document.querySelector(".box" + i);
+                let imageDiv = document.createElement("img");
+                imageDiv.classList.add("image", "imagesNum" + i)
+                image.appendChild(imageDiv);
+                //創建attraction-img
+                let attractionImgDiv = document.createElement("img");
+                attractionImgDiv.classList.add("attraction-img");
+                image.appendChild(attractionImgDiv);
+                attractionImgDiv.src = data["data"][x]["images"][0];
+                image.appendChild(attractionImgDiv);
+                //創建opacity
+                let opacityDiv = document.createElement("div");
+                opacityDiv.classList.add("opacity");
+                image.appendChild(opacityDiv);
+                //創建attraction-name
+                let attractionNameDiv = document.createElement("div");
+                attractionNameDiv.classList.add("attraction-name");
+                attractionNameDiv.textContent = data["data"][x]["name"];
+                image.appendChild(attractionNameDiv);
+                //創建img-bottom
+                let imgBottom = document.querySelector(".box" + i);
+                let imgBottomDiv = document.createElement("div");
+                imgBottomDiv.classList.add("img-bottom");
+                imgBottom.appendChild(imgBottomDiv);
+                //創建mrt-name
+                let mrtNameDiv = document.createElement("div");
+                mrtNameDiv.classList.add("mrt-name")
+                mrtNameDiv.textContent = data["data"][x]["mrt"]
+                imgBottom.appendChild(mrtNameDiv);
+                //創建view-class
+                let viewClassDiv = document.createElement("div");
+                viewClassDiv.classList.add("view-class");
+                viewClassDiv.textContent = data["data"][x]["category"]
+                imgBottom.appendChild(viewClassDiv);
+            }
+        }).catch(error => {
+            console.error("發生錯誤", error);
+        });
     }
+
+    else {
+        return;
+    };
 };
+
 document.addEventListener("scrollend", function () {
     // 在元素滾動到頁面底部時，載入更多內容
     if (window.scrollY + window.screen.height >= document.body.scrollHeight) {
         loadMore();
-    };
+    }
 });
 
 //測試load more用按鈕
@@ -205,12 +178,6 @@ function keywordSearch(key) {
             let firstDiv = document.createElement("div");
             firstDiv.classList.add("attraction", "box" + i);
             firstFa.appendChild(firstDiv);
-            let hidden = document.createElement("div");
-            hidden.classList.add("hide-id");
-            hidden.textContent = data["data"][i]["id"]
-            firstDiv.appendChild(hidden);
-            firstDiv.setAttribute("onclick", "GoBooking(this);");
-            firstFa.appendChild(firstDiv)
             //創建image
             let image = document.querySelector(".box" + i);
             let imageDiv = document.createElement("img");
@@ -262,7 +229,7 @@ function keywords() {
         console.log("讀取成功", searchData);
         if (searchData["data"] != "null") {
             setNum = nextPage * 12;
-            nextPage, page = searchData["nextPage"];
+            nextPage,page = searchData["nextPage"];
             dataLength = searchData["data"].length;
             let photoBox = document.querySelector(".images-box");
             photoBox.innerHTML = "";
@@ -274,12 +241,6 @@ function keywords() {
                 let firstDiv = document.createElement("div");
                 firstDiv.classList.add("attraction", "box" + i);
                 firstFa.appendChild(firstDiv);
-                let hidden = document.createElement("div");
-                hidden.classList.add("hide-id");
-                hidden.textContent = searchData["data"][x]["id"]
-                firstDiv.appendChild(hidden);
-                firstDiv.setAttribute("onclick", "GoBooking(this);");
-                firstFa.appendChild(firstDiv)
                 //創建image
                 let image = document.querySelector(".box" + i);
                 let imageDiv = document.createElement("img");
@@ -323,5 +284,4 @@ function keywords() {
         console.error("發生錯誤", error);
     });
 };
-
 

@@ -1,11 +1,20 @@
 from flask import *
 import mysql.connector
 
-app=Flask(__name__)
-app = Flask(__name__, static_folder="public", static_url_path="/")
+# app=Flask(__name__)
+app = Flask(__name__, static_folder="public")
 app.secret_key = "WGXaTKE7JR9MzzykHVp1O8ix7cnkx5eOb400I5gPxXJI3I8saAUWZjDLxs6056M"
 
 cnxpool = mysql.connector.pooling.MySQLConnectionPool(user="root", password="root123", host="localhost", database="TripSite",pool_name="mypool",pool_size=5)
+def appRunSQL():
+	con=cnxpool.get_connection()
+	cursor=con.cursor()
+	cursor.execute("SET GLOBAL group_concat_max_len = 102400;")
+	con.commit()
+	cursor.close()
+	con.close()
+
+appRunSQL()
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
