@@ -413,7 +413,9 @@ function login(){
             console.error("發生錯誤", error);
         });
     }else{
-        alert("電子信箱、密碼欄位不得為空")
+        let message = document.querySelector('.message')
+        message.innerHTML="電子信箱、密碼欄位不得為空"
+        message.style.color="red"
     };
 };
 
