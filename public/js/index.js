@@ -21,9 +21,46 @@ function GoHome() {
     window.location.href = "/"
 }
 
+function loginBlock(){
+    let loginBg = document.querySelector(".login-class");
+    let loginBox = document.querySelector(".login-box");
+    loginBg.style.display="block";
+    loginBox.style.display="block";
+}
+function logoutBlock(){
+    window.localStorage.removeItem('token');
+    window.location.href = window.location.pathname;
+}
+
+
+function goRegister(){
+    let loginBox = document.querySelector(".login-box");
+    let registerBox = document.querySelector(".register-box");
+    loginBox.style.display="none";
+    registerBox.style.display="block";
+}
+function goLogin(){
+    let loginBox = document.querySelector(".login-box");
+    let registerBox = document.querySelector(".register-box");
+    loginBox.style.display="block";
+    registerBox.style.display="none";
+}
+
+function closeInput(){
+    let loginBg = document.querySelector(".login-class");
+    let loginBox = document.querySelector(".login-box");
+    loginBg.style.display="none";
+    loginBox.style.display="none";
+}
+function closeRegister(){
+    let loginBg = document.querySelector(".login-class");
+    let registerBox = document.querySelector(".register-box");
+    loginBg.style.display="none";
+    registerBox.style.display="none";
+}
+
 let door = 0;
 fetch("/api/attractions").then(response => response.json()).then(data => {
-    console.log("讀取成功", data);
     page = data["nextPage"];
 
     for (let i = 0; i < 12; i++) {
@@ -76,13 +113,11 @@ fetch("/api/attractions").then(response => response.json()).then(data => {
         imgBottom.appendChild(viewClassDiv);
     }
     door = 1;
-    console.log(door)
 }).catch(error => {
     console.error("發生錯誤", error);
 });
 
 fetch("/api/mrts").then(response => response.json()).then(mrtdatas => {
-    console.log("讀取成功", mrtdatas);
     for (let i = 0; i < mrtdatas["data"].length; i++) {
         if (mrtdatas["data"][i] != "None") {
             let mrt = document.querySelector(".container");
@@ -106,11 +141,8 @@ let loadMore = function () {
         if (page != null) {
             let pageNum = page;
             fetch(`/api/attractions?page=${pageNum}&keyword=${keyword}`).then(response => response.json()).then(data => {
-                console.log(keyword)
-                console.log("讀取成功", data);
                 setNum = page * 12;
                 page = data["nextPage"];
-                console.log(page)
                 dataLength = data["data"].length;
                 for (let x = 0; x < dataLength; x++) {
                     i = x + setNum;
@@ -190,7 +222,6 @@ function keywordSearch(key) {
     let placeholder = document.querySelector(".search")
     placeholder.value = keyword;
     fetch(`/api/attractions?keyword=${keyword}`).then(response => response.json()).then(data => {
-        console.log("讀取成功", data);
         page = data["nextPage"];
         mrtPage = data["nextPage"];
         setNum = page * 12;
@@ -259,7 +290,6 @@ function keywords() {
     keyword = keywords
     console.log(keywords)
     fetch(`/api/attractions?keyword=${keywords}`).then(response => response.json()).then(searchData => {
-        console.log("讀取成功", searchData);
         if (searchData["data"] != "null") {
             setNum = nextPage * 12;
             nextPage, page = searchData["nextPage"];
@@ -323,5 +353,89 @@ function keywords() {
         console.error("發生錯誤", error);
     });
 };
+function register(){
+    let headers={
+        "Content-Type": "application/json",
+    };
+    let name= document.querySelector('.name-text').value;
+    let email =document.querySelector('.email-text').value;
+    let password = document.querySelector('.password-text').value;
+    if (name && email && password){
+    fetch("/api/user", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({ name:name, email:email, password:password })
+    }).then(response => response.json()).then(data => {
+        console.log(data);
+        if (data["error"]!=null){
+            let errorMessage = document.querySelector(".error-message")
+            errorMessage.innerHTML="註冊失敗，重複註冊的Email或其他原因"
+            errorMessage.style.color="red"
+        }else{
+            let errorMessage = document.querySelector(".error-message")
+            errorMessage.innerHTML="註冊成功，請登入會員帳號!"
+            errorMessage.style.color="#99FF33"
+        }
+    }).catch(error => {
+        console.error("發生錯誤", error);
+    });
+    }else{
+        let errorMessage = document.querySelector(".error-message")
+        errorMessage.innerHTML="註冊失敗，欄位不得為空"
+        errorMessage.style.color="red"
+    }
+};
 
+function login(){
+    let headers={
+        "Content-Type": "application/json",
+    };
+    let email = document.querySelector('.login-email').value;
+    let password = document.querySelector('.login-password').value;
+    if (email && password){
+        fetch("/api/user/auth", {
+            method: "PUT",
+            headers: headers,
+            body: JSON.stringify({ email:email, password:password })
+        }).then(response => response.json()).then(data => {
+            console.log(data);
+            if (data["error"]!=true){
+                let token = data["token"];
+                console.log(token);
+                window.localStorage.setItem('token', token);
+                window.location.href = window.location.pathname ;
+            }else{
+                let message = document.querySelector('.message')
+                message.innerHTML="登入失敗，帳號密碼錯誤或其他原因"
+                message.style.color="red"
+            };
+        }).catch(error => {
+            console.error("發生錯誤", error);
+        });
+    }else{
+        alert("電子信箱、密碼欄位不得為空")
+    };
+};
 
+function userLogin(){
+    let token = localStorage.getItem('token');
+    let headers={
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${ token }`}
+fetch("/api/user/auth", {
+    method : "GET",
+    headers : headers
+}).then(response => response.json()).then(data => {
+    console.log(data)
+    if (data['data']!=null){
+        let logInButton = document.querySelector('.login-button');
+        logInButton.style.display="none"
+        let logoutButton = document.querySelector('.logout-button');
+        logoutButton.style.display="block"
+    }else{
+        console.error("尚未登入", error);
+    }
+}).catch( error => {
+    console.log("尚未登入");
+})}
+userLogin()
