@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `tripsite` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `tripsite`;
+CREATE DATABASE  IF NOT EXISTS `TripSite` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `TripSite`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: tripsite
+-- Host: localhost    Database: TripSite
 -- ------------------------------------------------------
 -- Server version	8.0.34
 
@@ -76,7 +76,7 @@ INSERT INTO `images` VALUES (1,1,'https://www.travel.taipei/d_upload_ttn/scenead
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'tripsite'
+-- Dumping routines for database 'TripSite'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

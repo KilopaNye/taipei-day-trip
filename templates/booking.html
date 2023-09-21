@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台北一日遊</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/attraction.css')}}">
+    <script src="{{url_for('static',filename='js/attraction.js')}}"></script> -->
+    <link rel="stylesheet" href="/public/CSS/booking.css">
+    <script src="/public/js/booking.js"></script>
+</head>
+
+<body>
+    <div style="display:none;" class="login-class"></div>
+    <div class="login-box" style="display:none;">
+        <img src="/public/images/close.png" class="close-png" onclick="closeInput();">
+        <div style="background-color: #489; height: 10px; width: 100%; border-radius: 6px 6px 0 0;"></div>
+        <div style="display: flex; justify-content: center;font-size: 24px; font-weight: bold;   margin: 15px;">登入會員帳號
+        </div>
+        <input type="text" placeholder="輸入電子信箱" class="text-input login-email">
+        <input type="password" placeholder="輸入密碼" class="text-input login-password">
+        <div class="login-text" onclick="login();">登入帳戶</div>
+        <div class="message"></div>
+        <div style="font-size: 16px; margin-bottom: 15px;font-weight: bold; cursor: pointer;" onclick="goRegister();">
+            還沒有帳戶? 點此註冊</div>
+    </div>
+
+    <div class="register-box" style="display:none;">
+        <img src="/public/images/close.png" class="close-png" onclick="closeRegister();">
+        <div style="background-color: #489; height: 10px; width: 100%; border-radius: 6px 6px 0 0;"></div>
+        <div style="display: flex; justify-content: center;font-size: 24px; font-weight: bold;   margin: 15px;">註冊會員帳號
+        </div>
+        <input type="text" placeholder="輸入姓名" class="text-input name-text">
+        <input type="text" placeholder="輸入電子信箱" class="text-input email-text">
+        <input type="password" placeholder="輸入密碼" class="text-input password-text">
+        <div class="login-text" onclick="register();">註冊新帳戶</div>
+        <div class="error-message"></div>
+        <div style="font-size: 16px; margin-bottom: 15px;font-weight: bold; cursor: pointer;" onclick="goLogin();">
+            已經有帳戶了? 點此登入</div>
+    </div>
+
+    <navigation class="navigation">
+        <div class="nav-box">
+            <div class="Frame-2">
+                <div class="text-taipei" onclick="GoHome();">台北一日遊</div>
+            </div>
+            <div class="Frame-1">
+                <button class="button">預定行程</button>
+                <button class="button login-button" style="display: block;" onclick="loginBlock();">登入/註冊</button>
+                <button class="button logout-button" style="display: none;" onclick="logoutBlock();">登出系統</button>
+            </div>
+        </div>
+        </div>
+    </navigation>
+
+    <main>
+        <div class="main-flex">
+            <div class="display-flex" style="max-width: 1000px; margin-bottom: 30px;">
+                <div class="text-title">您好，<span class="name"></span>，待預定的行程如下:</div>
+            </div>
+            <div class="display-flex">
+                <div class="display-flex" >
+                    <div class="image-box"></div>
+                    <div class="text-box" style="padding-left: 22px;">
+                        <div style="margin-bottom: 20px;font-weight: bold; color: #489;">台北一日遊: <span
+                                class="text-box-title" id="tour-name"></span></div>
+                        <div style="margin-bottom: 10px;font-weight: bold;">日期：<span class="text-box-text"
+                                id="tour-date"></span></div>
+                        <div style="margin-bottom: 10px;font-weight: bold;">時間：<span class="text-box-text"
+                                id="tour-time"></span></div>
+                        <div style="margin-bottom: 10px;font-weight: bold;">費用：<span class="text-box-text"
+                                id="tour-cost"></span></div>
+                        <div style="font-weight: bold;">地點：<span class="text-box-text" id="tour-site"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-line-flex">
+                <hr class="gray-line">
+            </div>
+
+            <div class="display-flex">
+                <div>
+                    <div class="text-title" style="margin-bottom: 20px;">您的聯絡資訊</div>
+                    <div style="margin-bottom: 15px;">聯絡姓名：<input type="text"></div>
+                    <div style="margin-bottom: 15px;">連絡信箱：<input type="email"></div>
+                    <div style="margin-bottom: 15px;">手機號碼：<input type="text"></div>
+                    <div style="font-weight: bold;">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+                </div>
+            </div>
+
+            <div class="gray-line-flex">
+                <hr class="gray-line">
+            </div>
+
+            <div class="display-flex">
+                <div>
+                    <div class="text-title" style="margin-bottom: 20px;">信用卡付款資訊</div>
+                    <div style="margin-bottom: 15px;">卡片號碼：<input type="text" placeholder="**** **** **** ****"></div>
+                    <div style="margin-bottom: 15px;">過期時間：<input type="text" placeholder="MM/YY"></div>
+                    <div>驗證密碼：<input type="text" placeholder="CVV"></div>
+                </div>
+            </div>
+
+            <div class="gray-line-flex">
+                <hr class="gray-line">
+            </div>
+
+            <div class="display-flex" style="display: flex; justify-content: end;margin-bottom: 40px;">
+                <div class="information">
+                    <div style="margin-bottom: 22px;font-weight: bold;">總價：<span class="total-cost"></span></div>
+                    <div class="go-btn">確認訂購並付款</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>COPYRIGHT © 2021 台北一日遊</footer>
+</body>
+
+</html>
