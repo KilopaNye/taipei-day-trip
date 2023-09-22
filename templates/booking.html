@@ -8,7 +8,7 @@
     <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/attraction.css')}}">
     <script src="{{url_for('static',filename='js/attraction.js')}}"></script> -->
     <link rel="stylesheet" href="/public/CSS/booking.css">
-    <script src="/public/js/booking.js"></script>
+   
 </head>
 
 <body>
@@ -58,21 +58,17 @@
             <div class="display-flex" style="max-width: 1000px; margin-bottom: 30px;">
                 <div class="text-title">您好，<span class="name"></span>，待預定的行程如下:</div>
             </div>
-            <div class="display-flex tour-box">
-                <div class="display-flex" >
+            <div class="display-flex" id="tour-box">
+                <!-- <div class="display-flex" >
                     <div class="image-box"></div>
-                    <div class="text-box" style="padding-left: 22px;">
-                        <div style="margin-bottom: 20px;font-weight: bold; color: #489;">台北一日遊: <span
-                                class="text-box-title" id="tour-name"></span></div>
-                        <div style="margin-bottom: 10px;font-weight: bold;">日期：<span class="text-box-text"
-                                id="tour-date"></span></div>
-                        <div style="margin-bottom: 10px;font-weight: bold;">時間：<span class="text-box-text"
-                                id="tour-time"></span></div>
-                        <div style="margin-bottom: 10px;font-weight: bold;">費用：<span class="text-box-text"
-                                id="tour-cost"></span></div>
-                        <div style="font-weight: bold;">地點：<span class="text-box-text" id="tour-site"></span></div>
+                    <div class="text-box">
+                        <div class="text-box-title">台北一日遊:</div>
+                        <div class="text-box-text">日期：</div>
+                        <div class="text-box-text">時間：</div>
+                        <div class="text-box-text">費用：</div>
+                        <div style="font-weight: bold;">地點：</div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="gray-line-flex">
@@ -117,6 +113,7 @@
     </main>
 
     <footer>COPYRIGHT © 2021 台北一日遊</footer>
+    <script src="/public/js/booking.js"></script>
 </body>
 
 </html>

@@ -213,3 +213,13 @@ input{
     height: 200px;
     background-color: antiquewhite;
 }
+.text-box{
+    padding-left: 22px;
+}
+.text-box-title{
+    margin-bottom: 20px;font-weight: bold; color: #489;
+}
+.text-box-text{
+    margin-bottom: 10px;font-weight: bold;
+}
+

@@ -129,11 +129,46 @@ function closeRegister(){
     registerBox.style.display="none";
 }
 
-let tourBox = document.querySelector(".tourBox");
+
+let tourBox = document.querySelector("#tour-box");
 let tourDiv = document.createElement("div");
-tourDiv.classList.add("display-flex");
+tourDiv.classList.add("display-flex","flex-box");
 tourBox.appendChild(tourDiv);
-let imageBox = document.querySelector(".image-box");
+
+let flexBox = document.querySelector(".flex-box")
 imageBox = document.createElement("img");
 imageBox.src = "";
-tourBox.appendChild(imageBox);
+imageBox.classList.add("image-box")
+flexBox.appendChild(imageBox);
+
+let textDiv = document.createElement("div");
+textDiv.classList.add("text-box");
+flexBox.appendChild(textDiv);
+
+let textBoxTitle = document.querySelector(".text-box");
+
+let textBoxTitleDiv = document.createElement("div");
+textBoxTitleDiv.classList.add("text-box-title");
+textBoxTitleDiv.innerHTML=`台北一日遊：`;
+textBoxTitle.appendChild(textBoxTitleDiv);
+
+let textBoxText1Div = document.createElement("div");
+textBoxText1Div.classList.add("text-box-text");
+textBoxText1Div.innerHTML=`日期：`;
+textBoxTitle.appendChild(textBoxText1Div);
+let textBoxText2Div =document.createElement("div");
+textBoxText2Div.classList.add("text-box-text");
+textBoxText2Div.innerHTML=`時間：`;
+textBoxTitle.appendChild(textBoxText2Div);
+let textBoxText3Div =document.createElement("div");
+textBoxText3Div.classList.add("text-box-text");
+textBoxText3Div.innerHTML=`時間：`;
+textBoxTitle.appendChild(textBoxText3Div);
+let textBoxText4Div = document.createElement("div");
+textBoxText4Div.classList.add("text-box-text");
+textBoxText4Div.innerHTML=`費用：`;
+textBoxTitle.appendChild(textBoxText4Div);
+let textBoxText5Div = document.createElement("div");
+textBoxText5Div.style.fontWeight=bold;
+textBoxText5Div.innerHTML=`費用：`;
+textBoxTitle.appendChild(textBoxText5Div);
