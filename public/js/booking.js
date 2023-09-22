@@ -128,3 +128,12 @@ function closeRegister(){
     loginBg.style.display="none";
     registerBox.style.display="none";
 }
+
+let tourBox = document.querySelector(".tourBox");
+let tourDiv = document.createElement("div");
+tourDiv.classList.add("display-flex");
+tourBox.appendChild(tourDiv);
+let imageBox = document.querySelector(".image-box");
+imageBox = document.createElement("img");
+imageBox.src = "";
+tourBox.appendChild(imageBox);
