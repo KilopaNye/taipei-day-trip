@@ -25,7 +25,6 @@ main{
     width: 100%;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
 .login-class {
@@ -99,6 +98,7 @@ main{
     width: 100%;
     max-width: 980px;
     display: flex;
+    flex-wrap: wrap;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -106,8 +106,13 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 104px;
+    min-height: 104px;
     background-color: #757575;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+.footerDiv{
     color: #FFFFFF;
     font-family:  "Noto Sans TC",Arial,sans-serif;
     font-weight: bold;
@@ -174,7 +179,8 @@ footer {
 }
 
 .gray-line{
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     opacity: 0.3;
     margin: 40px 0 40px 0;
 }
@@ -208,13 +214,36 @@ input{
     position: relative;
     height: 100px;
 }
+@media(max-width:1250px){
+    .information{
+        padding-right: 40px;
+    }
+}
 .image-box{
-    width: 265px;
+    display: flex;
     height: 200px;
+    width: 265px;
+    border-radius: 1px;
     background-color: antiquewhite;
+    border-radius: 10px 0px 0px 10px;
+}
+@media(max-width:600px){
+    .image-box{
+        border-radius: 10px 10px 0px 0px;
+        width: 100%;
+        object-fit: cover;
+        flex-basis: auto;
+    }
 }
 .text-box{
     padding-left: 22px;
+}
+@media(max-width:1250px){
+    .text-box{
+        padding-left: 15px;
+        width: 252px;
+        margin-top: 10px;
+    }
 }
 .text-box-title{
     margin-bottom: 20px;font-weight: bold; color: #489;
@@ -222,4 +251,41 @@ input{
 .text-box-text{
     margin-bottom: 10px;font-weight: bold;
 }
+.bgColor{
+    border: #f5f5f5 solid 1px;
+    border-radius: 10px;
+    position: relative;
+}
+@media(max-width:1250px){
+    .bgColor{
+        margin-right: 40px;
+        margin-left: 10px;
+    }
+}
+.delete-icon{
+    position: absolute;
+    right: 0;top:0;
+}
+@media(max-width:600px){
+    .delete-icon{
+        position: absolute;
+        top:92%;
+    }
+}
+.boxDiv{
+    height: 300px;
+}
 
+@media(max-width:1250px){
+    .box-padding{
+        padding-right: 40px;
+    }
+}
+.information-display-flex{
+    width: 100%;
+    max-width: 980px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    margin-right: 20px;
+}

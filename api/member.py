@@ -43,7 +43,6 @@ def userLoing():
 		data = request.headers["Authorization"]
 		scheme, token = data.split()
 		decoded_token = jwt.decode(token, key='7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0', algorithms="HS256")
-		print(decoded_token)
 		if decoded_token:
 			return {
 				"data":{

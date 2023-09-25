@@ -8,7 +8,6 @@
     <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/attraction.css')}}">
     <script src="{{url_for('static',filename='js/attraction.js')}}"></script> -->
     <link rel="stylesheet" href="/public/CSS/booking.css">
-   
 </head>
 
 <body>
@@ -45,7 +44,7 @@
                 <div class="text-taipei" onclick="GoHome();">台北一日遊</div>
             </div>
             <div class="Frame-1">
-                <button class="button">預定行程</button>
+                <button class="button" onclick="GoBookingCheck();">預定行程</button>
                 <button class="button login-button" style="display: block;" onclick="loginBlock();">登入/註冊</button>
                 <button class="button logout-button" style="display: none;" onclick="logoutBlock();">登出系統</button>
             </div>
@@ -54,9 +53,10 @@
     </navigation>
 
     <main>
-        <div class="main-flex">
-            <div class="display-flex" style="max-width: 1000px; margin-bottom: 30px;">
-                <div class="text-title">您好，<span class="name"></span>，待預定的行程如下:</div>
+        <div class="main-flex" style="overflow-x: hidden;">
+            <div style="width: 100%;max-width: 1200px;">
+                <div class="display-flex" style="max-width: 1000px; margin-bottom: 30px;">
+                <div class="text-title"></div>
             </div>
             <div class="display-flex" id="tour-box">
                 <!-- <div class="display-flex" >
@@ -81,7 +81,7 @@
                     <div style="margin-bottom: 15px;">聯絡姓名：<input type="text"></div>
                     <div style="margin-bottom: 15px;">連絡信箱：<input type="email"></div>
                     <div style="margin-bottom: 15px;">手機號碼：<input type="text"></div>
-                    <div style="font-weight: bold;">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+                    <div style="font-weight: bold;" class="box-padding">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
                 </div>
             </div>
 
@@ -102,17 +102,18 @@
                 <hr class="gray-line">
             </div>
 
-            <div class="display-flex" style="display: flex; justify-content: end;margin-bottom: 40px;">
+            <div class="information-display-flex" style="display: flex; justify-content: end;margin-bottom: 40px;">
                 <div class="information">
                     <div style="margin-bottom: 22px;font-weight: bold;">總價：<span class="total-cost"></span></div>
                     <div class="go-btn">確認訂購並付款</div>
                 </div>
             </div>
         </div>
-
+</div>
+            
     </main>
-
-    <footer>COPYRIGHT © 2021 台北一日遊</footer>
+    <div style="height: 104px;"></div>
+    <footer><div class="footerDiv">COPYRIGHT © 2021 台北一日遊</div></footer>
     <script src="/public/js/booking.js"></script>
 </body>
 

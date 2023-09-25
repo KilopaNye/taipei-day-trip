@@ -44,7 +44,8 @@ function closeRegister(){
     loginBg.style.display="none";
     registerBox.style.display="none";
 }
-
+let time_check = ""
+let money_check
 function check_top() {
     let check_bottom = document.querySelector("#check-bottom");
     let check_top = document.querySelector("#check-top");
@@ -54,8 +55,11 @@ function check_top() {
         check_top.src = "/public/images/radio_ok.png";
         check_bottom.src = "/public/images/radio.png";
         money.innerHTML = "新台幣 2000 元";
+        money_check = 2000;
+        time_check = "morning"
     } else {
         check_top.src = "/public/images/radio.png";
+        money_check = null;
         money.innerHTML = "尚未選擇行程";
     };
 };
@@ -68,8 +72,11 @@ function check_bottom() {
         check_bottom.src = "/public/images/radio_ok.png";
         check_top.src = "/public/images/radio.png";
         money.innerHTML = "新台幣 2500 元";
+        money_check = 2500;
+        time_check = "afternoon"
     } else {
         check_bottom.src = "/public/images/radio.png";
+        money_check = null;
         money.innerHTML = "尚未選擇行程";
     };
 };
@@ -239,17 +246,17 @@ function login(){
                 window.localStorage.setItem('token', token);
                 window.location.href = window.location.pathname ;
             }else{
-                let message = document.querySelector('.message')
+                let message = document.querySelector('.message');
                 message.innerHTML="登入失敗，帳號密碼錯誤或其他原因"
-                message.style.color="red"
+                message.style.color="red";
             };
         }).catch(error => {
             console.error("發生錯誤", error);
         });
     }else{
-        let message = document.querySelector('.message')
-        message.innerHTML="電子信箱、密碼欄位不得為空"
-        message.style.color="red"
+        let message = document.querySelector('.message');
+        message.innerHTML="電子信箱、密碼欄位不得為空";
+        message.style.color="red";
     };
 };
 
@@ -262,12 +269,12 @@ fetch("/api/user/auth", {
     method : "GET",
     headers : headers
 }).then(response => response.json()).then(data => {
-    console.log(data)
+    console.log(data);
     if (data['data']!=null){
         let logInButton = document.querySelector('.login-button');
-        logInButton.style.display="none"
+        logInButton.style.display="none";
         let logoutButton = document.querySelector('.logout-button');
-        logoutButton.style.display="block"
+        logoutButton.style.display="block";
     }else{
         console.error("尚未登入", error);
     }
@@ -276,7 +283,47 @@ fetch("/api/user/auth", {
 })}
 userLogin()
 
-
+function bookingInsert(){
+    let token = localStorage.getItem('token');
+    if(token){
+        let dateTime = document.querySelector(".date").value;
+        if(dateTime && time_check && money_check ){
+            let token = localStorage.getItem('token');
+            let headers={
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${ token }`}
+            fetch("/api/booking", {
+                method : "POST",
+                headers : headers,
+                body: JSON.stringify({ attractionId:attraction_id, date:dateTime,time:time_check, price:money_check})
+            }).then(response => response.json()).then(data => {
+                console.log(data)
+                if (data['ok']){
+                    window.location.href="/booking";
+                    return console.log(data);
+                }else{
+                    console.error("尚未登入", error);
+                    loginBlock();
+                }
+            }).catch( error => {
+                console.log("尚未登入");
+                loginBlock();
+            })
+        }else{
+            alert("欄位不得為空")
+        }
+        }else{
+            loginBlock();
+    }
+};
+function GoBookingCheck(){
+    let token = localStorage.getItem('token');
+    if(token){
+        window.location.href="/booking";
+    }else{
+        loginBlock();
+    }
+}
 // function changeImg(circle_num) {
 //     let circle_length=document.querySelectorAll(".circle").length
 //     for(let i=0;i<circle_length;i++){
@@ -285,7 +332,6 @@ userLogin()
 //     }
 //     let circleStart = document.querySelector(".circle-"+circle_num)
 //     circleStart.src="/public/images/b_circle.png"
-    
 //     if(circle_num==circle_length-1){
 //         start=0
 //     }else{

@@ -40,7 +40,7 @@
                 <div class="text-taipei" onclick="GoHome();">台北一日遊</div>
             </div>
             <div class="Frame-1">
-                <button class="button">預定行程</button>
+                <button class="button" onclick="GoBookingCheck();">預定行程</button>
                 <button class="button login-button" style="display: block;" onclick="loginBlock();">登入/註冊</button>
                 <button class="button logout-button" style="display: none;" onclick="logoutBlock();">登出系統</button>
             </div>
@@ -62,7 +62,7 @@
                     <div class="check-flex" onclick="check_bottom();"><img src="/public//images/radio.png" id="check-bottom"  style="padding-right: 5px;">下半天</div>
                     </div>
                     <div class="booking-text">導覽費用： <span class="booking-text money">尚未選擇行程</span></div>
-                    <div class="go-btn">開始預約行程</div>
+                    <div class="go-btn" onclick="bookingInsert();">開始預約行程</div>
                 </div>
             </div>
         </section>
