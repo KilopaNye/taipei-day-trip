@@ -114,7 +114,7 @@ function booking() {
                 totalCost+=data['data'][i]["price"]
                 let tourBox = document.querySelector("#tour-box");
                 let tourDiv = document.createElement("div");
-                tourDiv.classList.add("bgColor","display-flex", "flex-box"+i);
+                tourDiv.classList.add("bgColor","bg-display-flex", "flex-box"+i);
                 tourDiv.style.marginBottom="20px";
                 tourBox.appendChild(tourDiv);
 
@@ -155,7 +155,7 @@ function booking() {
                 textBoxTitle.appendChild(textBoxText2Div);
                 let textBoxText3Div = document.createElement("div");
                 textBoxText3Div.classList.add("text-box-text");
-                textBoxText3Div.innerHTML = `費用：${ data['data'][i]["price"]}`;
+                textBoxText3Div.innerHTML = `費用：新台幣 ${ data['data'][i]["price"]} 元`;
                 textBoxTitle.appendChild(textBoxText3Div);
                 let textBoxText4Div = document.createElement("div");
                 textBoxText4Div.classList.add("text-box-text");
@@ -163,7 +163,7 @@ function booking() {
                 textBoxTitle.appendChild(textBoxText4Div);
             }
             let totalPrice = document.querySelector(".total-cost")
-            totalPrice.innerHTML = totalCost
+            totalPrice.innerHTML = `新台幣${ totalCost } 元`
             checkNum();
 
         } else {

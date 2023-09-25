@@ -35,7 +35,8 @@
         <input type="password" placeholder="輸入密碼" class="text-input password-text">
         <div class="login-text" onclick="register();">註冊新帳戶</div>
         <div class="error-message"></div>
-        <div style="font-size: 16px; margin-bottom: 15px;font-weight: bold; cursor: pointer;" onclick="goLogin();">已經有帳戶了? 點此登入</div>
+        <div style="font-size: 16px; margin-bottom: 15px;font-weight: bold; cursor: pointer;" onclick="goLogin();">
+            已經有帳戶了? 點此登入</div>
     </div>
 
     <navigation class="navigation">
@@ -54,12 +55,12 @@
 
     <main>
         <div class="main-flex" style="overflow-x: hidden;">
-            <div style="width: 100%;max-width: 1200px;">
+            <div style="width: 100%;max-width: 1200px;display: flex;align-items: center;flex-direction: column;">
                 <div class="display-flex" style="max-width: 1000px; margin-bottom: 30px;">
-                <div class="text-title"></div>
-            </div>
-            <div class="display-flex" id="tour-box">
-                <!-- <div class="display-flex" >
+                    <div class="text-title"></div>
+                </div>
+                <div class="display-flex" id="tour-box">
+                    <!-- <div class="display-flex" >
                     <div class="image-box"></div>
                     <div class="text-box">
                         <div class="text-box-title">台北一日遊:</div>
@@ -69,51 +70,53 @@
                         <div style="font-weight: bold;">地點：</div>
                     </div>
                 </div> -->
-            </div>
-
-            <div class="gray-line-flex">
-                <hr class="gray-line">
-            </div>
-
-            <div class="display-flex">
-                <div>
-                    <div class="text-title" style="margin-bottom: 20px;">您的聯絡資訊</div>
-                    <div style="margin-bottom: 15px;">聯絡姓名：<input type="text"></div>
-                    <div style="margin-bottom: 15px;">連絡信箱：<input type="email"></div>
-                    <div style="margin-bottom: 15px;">手機號碼：<input type="text"></div>
-                    <div style="font-weight: bold;" class="box-padding">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
                 </div>
-            </div>
-
-            <div class="gray-line-flex">
+                
                 <hr class="gray-line">
-            </div>
+                <!-- <div class="gray-line-flex">
+                    <hr class="gray-line">
+                </div> -->
 
-            <div class="display-flex">
-                <div>
-                    <div class="text-title" style="margin-bottom: 20px;">信用卡付款資訊</div>
-                    <div style="margin-bottom: 15px;">卡片號碼：<input type="text" placeholder="**** **** **** ****"></div>
-                    <div style="margin-bottom: 15px;">過期時間：<input type="text" placeholder="MM/YY"></div>
-                    <div>驗證密碼：<input type="text" placeholder="CVV"></div>
+                <div class="display-flex">
+                    <div>
+                        <div class="text-title" style="margin-bottom: 20px;">您的聯絡資訊</div>
+                        <div style="margin-bottom: 15px;">聯絡姓名：<input type="text"></div>
+                        <div style="margin-bottom: 15px;">連絡信箱：<input type="email"></div>
+                        <div style="margin-bottom: 15px;">手機號碼：<input type="text"></div>
+                        <div style="font-weight: bold;" class="box-padding">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="gray-line-flex">
                 <hr class="gray-line">
-            </div>
 
-            <div class="information-display-flex" style="display: flex; justify-content: end;margin-bottom: 40px;">
-                <div class="information">
-                    <div style="margin-bottom: 22px;font-weight: bold;">總價：<span class="total-cost"></span></div>
-                    <div class="go-btn">確認訂購並付款</div>
+                <div class="display-flex">
+                    <div>
+                        <div class="text-title" style="margin-bottom: 20px;">信用卡付款資訊</div>
+                        <div style="margin-bottom: 15px;">卡片號碼：<input type="text" placeholder="**** **** **** ****">
+                        </div>
+                        <div style="margin-bottom: 15px;">過期時間：<input type="text" placeholder="MM/YY"></div>
+                        <div>驗證密碼：<input type="text" placeholder="CVV"></div>
+                    </div>
+                </div>
+
+                <div class="gray-line-flex">
+                    <hr class="gray-line">
+                </div>
+
+                <div class="information-display-flex" style="display: flex; justify-content: end;margin-bottom: 40px;">
+                    <div class="information">
+                        <div style="margin-bottom: 22px;font-weight: bold;">總價：<span class="total-cost"></span></div>
+                        <div class="go-btn">確認訂購並付款</div>
+                    </div>
                 </div>
             </div>
         </div>
-</div>
-            
+
     </main>
     <div style="height: 104px;"></div>
-    <footer><div class="footerDiv">COPYRIGHT © 2021 台北一日遊</div></footer>
+    <footer>
+        <div class="footerDiv">COPYRIGHT © 2021 台北一日遊</div>
+    </footer>
     <script src="/public/js/booking.js"></script>
 </body>
 
