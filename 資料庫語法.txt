@@ -1,0 +1,58 @@
+CREATE database TripSite;
+USE TripSite;
+show tables;
+CREATE TABLE attractions (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(45) NOT NULL,
+  category VARCHAR(45) NOT NULL,
+  description TEXT NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  transport TEXT NOT NULL,
+  mrt VARCHAR(45),
+  lat DOUBLE NOT NULL,
+  lng DOUBLE NOT NULL,
+  PRIMARY KEY (id));
+  
+CREATE TABLE IF NOT EXISTS images (
+  imageID INT AUTO_INCREMENT,
+  image_id INT NOT NULL,
+  path TEXT NOT NULL,
+  PRIMARY KEY (imageID),
+  INDEX fk_images_attractions_idx (image_id ASC) VISIBLE,
+  CONSTRAINT fk_images_attractions
+    FOREIGN KEY (image_id)
+    REFERENCES attractions (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE members (
+	id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email varchar(255) NOT NULL,
+	username varchar(255) NOT NULL,
+	password varchar(255) NOT NULL,
+    time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE booking (
+	id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    member_id bigint NOT NULL,
+    attractionId int NOT NULL,
+    date varchar(255) NOT NULL,
+    time varchar(255) NOT NULL,
+    price int NOT NULL,
+    foreign key(member_id) references members(id) ON DELETE CASCADE
+);
+insert into booking(member_id,attractionId,date,time,price) values("1","10","2019-02-18","上半天","2500");
+insert into booking(member_id,attractionId,date,time,price) values("1","20","2018-02-18","上半天","2000");
+SET GLOBAL group_concat_max_len = 102400;
+ALTER TABLE images AUTO_INCREMENT = 1;
+drop table attractions;
+drop table images;
+drop table members;
+drop table booking;
+select * from attractions;
+select * from images;
+select * from members;
+select * from booking;
+truncate table members;
+
+SELECT attractions.id,attractions.name,attractions.address,images.path from attractions inner join images on attractions.id = images.image_id  WHERE attractions.id =4;

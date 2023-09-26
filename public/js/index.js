@@ -441,3 +441,12 @@ fetch("/api/user/auth", {
     console.log("尚未登入");
 })}
 userLogin()
+
+function GoBookingCheck(){
+    let token = localStorage.getItem('token');
+    if(token){
+        window.location.href="/booking"
+    }else{
+        loginBlock();
+    }
+}
