@@ -285,12 +285,7 @@ input{
     border-radius: 10px;
     position: relative;
 }
-@media(max-width:1250px){
-    .bgColor{
-        /* margin-right: 10px;
-        margin-left: 10px; */
-    }
-}
+
 .delete-icon{
     position: absolute;
     right: 0;top:0;
@@ -317,4 +312,16 @@ input{
     flex-wrap: wrap;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.tpfield {
+    width: 200px;
+    height: 38px;
+    border-radius: 6px;
+    border: #E8E8E8 solid 1px;
+    padding-left: 10px;
+    font-family: "Noto Sans TC", sans-serif;
+    outline: none;
+    font-weight: bold;
+    
 }

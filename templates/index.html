@@ -14,7 +14,7 @@
     <div class="login-box"  style="display:none;">
         <img src="/public/images/close.png" class="close-png" onclick="closeInput();">
         <div style="background-color: #489; height: 10px; width: 100%; border-radius: 6px 6px 0 0;"></div>
-        <div style="display: flex; justify-content: center;font-size: 24px; font-weight: bold;   margin: 15px;">登入會員帳號</div>
+        <div style="display: flex; justify-content: center;font-size: 24px; font-weight: bold; margin: 15px;">登入會員帳號</div>
         <input type="text" placeholder="輸入電子信箱" class="text-input login-email">
         <input type="password" placeholder="輸入密碼" class="text-input login-password">
         <div class="login-text" onclick="login();">登入帳戶</div>
@@ -41,6 +41,8 @@
                 <div class="text-taipei" onclick="GoHome();">台北一日遊</div>
             </div>
             <div class="Frame-1">
+                <script src="https://liberapay.com/Kilopa_Nye/widgets/button.js"></script>
+                <noscript><a href="https://liberapay.com/Kilopa_Nye/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
                 <button class="button" onclick="GoBookingCheck();">預定行程</button>
                 <button class="button login-button" style="display: block;" onclick="loginBlock();">登入/註冊</button>
                 <button class="button logout-button" style="display: none;" onclick="logoutBlock();">登出系統</button>

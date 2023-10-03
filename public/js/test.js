@@ -284,4 +284,31 @@ function keywords() {
         console.error("發生錯誤", error);
     });
 };
+class Person{
+    constructor(firstName, lastName){
+        this.first = firstName;
+        this.last = lastName;
+    }
 
+    getFullName(){
+        return "Hello" + this.first + " " + this.last;
+    }
+}
+
+class Bob extends Person{
+    constructor(firstName,lastName,age){
+        super(firstName,lastName);
+        this.age = age;
+    }
+
+    speek(){
+        console.log("hi")
+    }
+}
+
+let bob  = new Bob("Bob","lisa",30)
+console.log(bob)
+
+for (let i=0;i<10000000000;i++){
+    continue;
+}
