@@ -150,6 +150,10 @@ function OnSubmit() {
             body: JSON.stringify(ResuleInfo)
         }).then(response => response.json()).then(data => {
             console.log(data);
+            if(data["data"]["payment"]["status"]==0){
+                let number = data["data"]["number"];
+                window.location.href = `/thankyou?number=${number}`;
+            }
         }).catch(error => {
             console.log(error);
         })

@@ -95,19 +95,91 @@ def order_booking():
             print(tappay_response)
             if tappay_response["status"] == 0:
                 option = ["已付款", order_id]
-                cursor.execute("update trip set status=%s where number=%s",option,)
+                cursor.execute(
+                    "update trip set status=%s where number=%s",
+                    option,
+                )
+                con.commit()
+                # 成功後刪除購物車資料
+                cursor.execute(
+                    "delete from booking where id = %s",
+                    (data["order"]["trip"]["attraction"][i]["id"],),
+                )
                 con.commit()
                 return {
                     "data": {
                         "number": order_id,
-                        "payment": {"status": 0, "message": "付款成功"},
+                        "payment": {
+                            "status": tappay_response["status"],
+                            "message": "付款成功",
+                        },
                     }
                 }, 200
             else:
+                # 失敗後刪除訂購資料
+                cursor.execute("delete from trip where number = %s", (order_id,))
+                con.commit()
                 return {
-                    "error": True, 
-                    "message": "訂單建立失敗，輸入不正確或其他原因"
-                    },400
+                    "data": {
+                        "number": order_id,
+                        "payment": {
+                            "status": tappay_response["status"],
+                            "message": "付款失敗",
+                        },
+                    }
+                }, 400
+        else:
+            return {"error": True, "message": "未登入系統，拒絕存取"}, 403
+    except Exception as err:
+        print(err)
+        return {"error": True, "message": "伺服器內部錯誤"}, 500
+    finally:
+        cursor.close()
+        con.close()
+
+
+@order_system.route("/api/orders/<orderNumber>", methods=["GET"])
+def thankyou(orderNumber):
+    try:
+        con = cnxpool.get_connection()
+        cursor = con.cursor(dictionary=True)
+        data_token = request.headers["Authorization"]
+        scheme, token = data_token.split()
+        decoded_token = jwt.decode(
+            token,
+            key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
+            algorithms="HS256",
+        )
+        print(decoded_token["id"])
+        if decoded_token["id"] != None:
+            cursor.execute("select * from trip where number = %s", (orderNumber,))
+            source = cursor.fetchall()
+            cursor.execute("select * from orders where number = %s", (orderNumber,))
+            orderInfo = cursor.fetchone()
+            if source:
+                print(orderInfo)
+                response = make_response(
+                    jsonify(
+                        {
+                            "data": {
+                                "number": "20210425121135",
+                                "totalPrice": orderInfo["total_price"],
+                                "trip": {
+                                    "attraction":source,
+                                },
+                                "contact":orderInfo,
+                                "status": 1
+                            }
+                        }
+                    ),
+                    200,
+                )
+                response.headers["Content-type"] = "application/json"
+                return response
+            else:
+                response = make_response(jsonify({"data":"null"}),200,)
+                response.headers["Content-type"] = "application/json"
+                return response
         else:
             return {"error": True, "message": "未登入系統，拒絕存取"}, 403
     except Exception as err:

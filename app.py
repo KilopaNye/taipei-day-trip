@@ -8,6 +8,7 @@ from api.attractions import attractions_system
 from api.mrts import mrts_system
 from api.booking import booking_system
 from api.order import order_system
+from api.thankyou import thankyou_system
 
 app = Flask(__name__, static_folder="public")
 app.secret_key = "WGXaTKE7JR9MzzykHVp1O8ix7cnkx5eOb400I5gPxXJI3I8saAUWZjDLxs6056M"
@@ -21,6 +22,7 @@ app.register_blueprint(attractions_system)
 app.register_blueprint(mrts_system)
 app.register_blueprint(booking_system)
 app.register_blueprint(order_system)
+app.register_blueprint(thankyou_system)
 # Pages
 @app.route("/")
 def index():
