@@ -8,6 +8,8 @@
     <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/attraction.css')}}">
     <script src="{{url_for('static',filename='js/attraction.js')}}"></script> -->
     <link rel="stylesheet" href="/public/CSS/booking.css">
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
+    
 </head>
 
 <body>
@@ -71,7 +73,7 @@
                     </div>
                 </div> -->
                 </div>
-                
+
                 <hr class="gray-line">
                 <!-- <div class="gray-line-flex">
                     <hr class="gray-line">
@@ -80,22 +82,34 @@
                 <div class="display-flex">
                     <div>
                         <div class="text-title" style="margin-bottom: 20px;">您的聯絡資訊</div>
-                        <div style="margin-bottom: 15px;">聯絡姓名：<input type="text"></div>
-                        <div style="margin-bottom: 15px;">連絡信箱：<input type="email"></div>
-                        <div style="margin-bottom: 15px;">手機號碼：<input type="text"></div>
+                        <div style="margin-bottom: 15px;">聯絡姓名：<input type="text" class="order-name"></div>
+                        <div style="margin-bottom: 15px;">連絡信箱：<input type="email" class="order-email"></div>
+                        <div style="margin-bottom: 15px;">手機號碼：<input type="text" class="order-phone"></div>
                         <div style="font-weight: bold;" class="box-padding">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
                     </div>
                 </div>
 
                 <hr class="gray-line">
 
+                
+
+
+                
                 <div class="display-flex">
                     <div>
                         <div class="text-title" style="margin-bottom: 20px;">信用卡付款資訊</div>
-                        <div style="margin-bottom: 15px;">卡片號碼：<input type="text" placeholder="**** **** **** ****">
+                        <div style="display: flex;align-items: center;margin-bottom: 15px;">
+                            <label>卡片號碼：</label>
+                            <div class="tpfield" id="card-number"></div>
                         </div>
-                        <div style="margin-bottom: 15px;">過期時間：<input type="text" placeholder="MM/YY"></div>
-                        <div>驗證密碼：<input type="text" placeholder="CVV"></div>
+                        <div style="display: flex; align-items: center;margin-bottom: 15px;">
+                            <label>過期時間：</label>
+                            <div class="tpfield" id="card-expiration-date"></div>
+                        </div>
+                        <div style="display: flex;align-items: center;margin-bottom: 15px;">
+                            <label>驗證密碼：</label>
+                            <div class="tpfield" id="card-ccv"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -104,9 +118,10 @@
                 </div>
 
                 <div class="information-display-flex" style="display: flex; justify-content: end;margin-bottom: 40px;">
+                    <div id="message"></div>
                     <div class="information">
                         <div style="margin-bottom: 22px;font-weight: bold;">總價：<span class="total-cost"></span></div>
-                        <div class="go-btn">確認訂購並付款</div>
+                        <div class="go-btn" id="submit" onclick="OnSubmit();">確認訂購並付款</div>
                     </div>
                 </div>
             </div>
@@ -117,7 +132,9 @@
     <footer>
         <div class="footerDiv">COPYRIGHT © 2021 台北一日遊</div>
     </footer>
-    <script src="/public/js/booking.js"></script>
-</body>
 
+    <script src="/public/js/booking.js"></script>
+    <script src="/public/js/order.js"></script>
+    <script></script>
+</body>
 </html>

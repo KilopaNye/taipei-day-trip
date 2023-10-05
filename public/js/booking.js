@@ -118,10 +118,11 @@ function booking() {
                 tourDiv.style.marginBottom="20px";
                 tourBox.appendChild(tourDiv);
 
-                let flexBox = document.querySelector(".flex-box"+i)
+                let flexBox = document.querySelector(".flex-box"+i,)
                 imageBox = document.createElement("img");
+                imageBox.setAttribute("id",data['data'][i]["id"]);
                 imageBox.src = data['data'][i]["attraction"]["path"];
-                imageBox.classList.add("image-box")
+                imageBox.classList.add("image-box","img-url")
                 flexBox.appendChild(imageBox);
 
                 let textDiv = document.createElement("div");
@@ -140,25 +141,25 @@ function booking() {
                 let textBoxTitle = document.querySelector(".text-box"+i);
 
                 let textBoxTitleDiv = document.createElement("div");
-                textBoxTitleDiv.classList.add("text-box-title");
+                textBoxTitleDiv.classList.add("text-box-title","attraction_title");
                 textBoxTitleDiv.innerHTML = `台北一日遊：${ data['data'][i]["attraction"]["name"]}`;
                 textBoxTitleDiv.style.marginTop="10px"
                 textBoxTitle.appendChild(textBoxTitleDiv);
 
                 let textBoxText1Div = document.createElement("div");
-                textBoxText1Div.classList.add("text-box-text");
+                textBoxText1Div.classList.add("text-box-text","tour-date");
                 textBoxText1Div.innerHTML = `日期：${ data['data'][i]["date"]}`;
                 textBoxTitle.appendChild(textBoxText1Div);
                 let textBoxText2Div = document.createElement("div");
-                textBoxText2Div.classList.add("text-box-text");
+                textBoxText2Div.classList.add("text-box-text","tour-time");
                 textBoxText2Div.innerHTML = `時間：${ data['data'][i]["time"]}`;
                 textBoxTitle.appendChild(textBoxText2Div);
                 let textBoxText3Div = document.createElement("div");
-                textBoxText3Div.classList.add("text-box-text");
+                textBoxText3Div.classList.add("text-box-text","tour-price");
                 textBoxText3Div.innerHTML = `費用：新台幣 ${ data['data'][i]["price"]} 元`;
                 textBoxTitle.appendChild(textBoxText3Div);
                 let textBoxText4Div = document.createElement("div");
-                textBoxText4Div.classList.add("text-box-text");
+                textBoxText4Div.classList.add("text-box-text","tour-site");
                 textBoxText4Div.innerHTML = `地點：${ data['data'][i]["attraction"]["address"]}`;
                 textBoxTitle.appendChild(textBoxText4Div);
             }
@@ -197,7 +198,7 @@ function deleteBooking(id){
         let deleteDiv = document.querySelector(`.${ id.getAttribute("valued") }`)
         let total = document.querySelector(".total-cost")
         totalCost-=id.getAttribute("price")
-        total.innerHTML=totalCost
+        total.innerHTML=`新台幣${ totalCost } 元`
         deleteDiv.innerHTML=""
         deleteDiv.style.display="none";
         checkNum();

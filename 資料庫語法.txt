@@ -41,7 +41,42 @@ CREATE TABLE booking (
     price int NOT NULL,
     foreign key(member_id) references members(id) ON DELETE CASCADE
 );
-insert into booking(member_id,attractionId,date,time,price) values("1","10","2019-02-18","上半天","2500");
+
+CREATE TABLE test (
+	id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    member_id bigint NOT NULL,
+    attractionId int NOT NULL,
+    date varchar(255) NOT NULL,
+    time varchar(255) NOT NULL,
+    price int,
+    foreign key(member_id) references members(id) ON DELETE CASCADE
+);
+
+CREATE TABLE orders (
+	id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    member_id bigint NOT NULL,
+    number int NOT NULL,
+    name varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+    phone varchar(255) NOT NULL,
+    total_price int
+);
+
+CREATE TABLE trip (
+	id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    member_id bigint NOT NULL,
+    number int NOT NULL,
+    attractionId int NOT NULL,
+    date varchar(255) NOT NULL,
+    time varchar(255) NOT NULL,
+    status varchar(3) NOT NULL default "未付款",
+    price int NOT NULL
+);
+
+
+
+delete price from test where id = 3;
+insert into test(member_id,attractionId,date,time,price) values("1","10","2019-02-18","上半天","2500");
 insert into booking(member_id,attractionId,date,time,price) values("1","20","2018-02-18","上半天","2000");
 SET GLOBAL group_concat_max_len = 102400;
 ALTER TABLE images AUTO_INCREMENT = 1;
@@ -49,10 +84,13 @@ drop table attractions;
 drop table images;
 drop table members;
 drop table booking;
+drop table test;
 select * from attractions;
 select * from images;
 select * from members;
 select * from booking;
+select * from orders;
+select * from trip;
 truncate table members;
 
 SELECT attractions.id,attractions.name,attractions.address,images.path from attractions inner join images on attractions.id = images.image_id  WHERE attractions.id =4;

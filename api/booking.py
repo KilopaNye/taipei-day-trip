@@ -40,7 +40,6 @@ def check_booking():
                 sourseOne = ({"attraction":sources[0],"date":i["date"],"time":i["time"],"price":i["price"],"id":i["id"]})
                 data[x]=sourseOne
                 x+=1
-            print (data)
             return jsonify({"data":data}),200
         else:
             return {"error": True, "message": "	未登入系統，拒絕存取"},403
