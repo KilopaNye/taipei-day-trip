@@ -162,7 +162,7 @@ def thankyou(orderNumber):
                     jsonify(
                         {
                             "data": {
-                                "number": "20210425121135",
+                                "number": orderInfo["number"],
                                 "totalPrice": orderInfo["total_price"],
                                 "trip": {
                                     "attraction":source,
