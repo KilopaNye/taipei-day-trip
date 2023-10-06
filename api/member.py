@@ -1,12 +1,11 @@
 from flask import *
 from datetime import *
 import mysql.connector
-import jwt
 from modules import *
 from flask import Blueprint
 
 member_system = Blueprint("member_system", __name__)
-cnxpool = mysql.connector.pooling.MySQLConnectionPool(user="root", password="root123", host="localhost", database="TripSite",pool_name="mypool",pool_size=5)
+cnxpool=connect_to_pool()
 
 @member_system.route("/api/user", methods=["POST"])
 def register():
@@ -40,9 +39,7 @@ def register():
 @member_system.route("/api/user/auth", methods=["GET"])
 def userLoing():
 	try:
-		data = request.headers["Authorization"]
-		scheme, token = data.split()
-		decoded_token = jwt.decode(token, key='7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0', algorithms="HS256")
+		decoded_token=decode_jwt()
 		if decoded_token:
 			return {
 				"data":{

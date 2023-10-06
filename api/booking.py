@@ -1,33 +1,19 @@
 from flask import *
 from datetime import *
 import mysql.connector
-import jwt
 from modules import *
 from flask import Blueprint
 
 booking_system = Blueprint("booking_system", __name__)
-cnxpool = mysql.connector.pooling.MySQLConnectionPool(
-    user="root",
-    password="root123",
-    host="localhost",
-    database="TripSite",
-    pool_name="mypool",
-    pool_size=5,
-)
+
+cnxpool=connect_to_pool()
 
 
 @booking_system.route("/api/booking", methods=["GET"])
 def check_booking():
     try:
-        data = request.headers["Authorization"]
-        scheme, token = data.split()
-        decoded_token = jwt.decode(
-            token,
-            key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
-            algorithms="HS256",
-        )
+        decoded_token=decode_jwt()
         if decoded_token["id"]:
-            result=[]
             data={}
             con=cnxpool.get_connection()
             cursor = con.cursor(dictionary=True)
@@ -43,7 +29,8 @@ def check_booking():
             return jsonify({"data":data}),200
         else:
             return {"error": True, "message": "	未登入系統，拒絕存取"},403
-    except:
+    except Exception as err:
+        print(err)
         return {
             "error": True,
             "message": "伺服器內部錯誤"
@@ -55,14 +42,8 @@ def check_booking():
 @booking_system.route("/api/booking", methods=["POST"])
 def insert_booking():
     try:
-        data_token = request.headers["Authorization"]
         data = request.get_json()
-        scheme, token = data_token.split()
-        decoded_token = jwt.decode(
-            token,
-            key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
-            algorithms="HS256",
-        )
+        decoded_token=decode_jwt()
         con=cnxpool.get_connection()
         cursor = con.cursor(dictionary=True)
         if decoded_token["id"]!=None:
@@ -88,14 +69,8 @@ def insert_booking():
 @booking_system.route("/api/booking", methods=["DELETE"])
 def delete_booking():
     try:
-        data_token = request.headers["Authorization"]
+        decoded_token=decode_jwt()
         data = request.get_json()
-        scheme, token = data_token.split()
-        decoded_token = jwt.decode(
-            token,
-            key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
-            algorithms="HS256",
-        )
         print(data)
         con=cnxpool.get_connection()
         cursor = con.cursor(dictionary=True)
