@@ -5,6 +5,7 @@ import jwt
 from modules import *
 from flask import Blueprint
 
+
 booking_system = Blueprint("booking_system", __name__)
 cnxpool = mysql.connector.pooling.MySQLConnectionPool(
     user="root",

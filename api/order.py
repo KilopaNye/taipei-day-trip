@@ -5,6 +5,11 @@ import jwt
 from modules import *
 import datetime
 import requests
+import os
+from dotenv import *
+load_dotenv()
+
+partner_key = os.getenv('partner_key')
 
 order_system = Blueprint("order_system", __name__)
 cnxpool = mysql.connector.pooling.MySQLConnectionPool(
