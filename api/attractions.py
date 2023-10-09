@@ -5,7 +5,8 @@ import jwt
 from modules import *
 
 attractions_system = Blueprint("attractions_system", __name__)
-cnxpool = mysql.connector.pooling.MySQLConnectionPool(user="root", password="root123", host="localhost", database="TripSite",pool_name="mypool",pool_size=5)
+
+cnxpool=connect_to_pool()
 
 @attractions_system.route("/api/attraction/<attractionId>")
 def attraction_(attractionId):

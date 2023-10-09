@@ -5,7 +5,8 @@ import jwt
 from modules import *
 
 mrts_system = Blueprint("mrts_system", __name__)
-cnxpool = mysql.connector.pooling.MySQLConnectionPool(user="root", password="root123", host="localhost", database="TripSite",pool_name="mypool",pool_size=5)
+
+cnxpool=connect_to_pool()
 
 @mrts_system.route("/api/mrts")
 def mrt():

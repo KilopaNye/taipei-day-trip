@@ -1,6 +1,7 @@
 from flask import *
 from datetime import *
 import jwt
+import mysql.connector
 def jwt_make(id,member_id,email):
 	payload = {
 		'exp': datetime.now() + timedelta(minutes=10080),
@@ -12,32 +13,28 @@ def jwt_make(id,member_id,email):
 	encoded_jwt = jwt.encode(payload, key, algorithm='HS256')
 	return encoded_jwt
 
-# def decode_jwt(token):
-# 	data = request.headers["Authorization"]
-# 	scheme, token = data.split()
-# 	decoded_token = jwt.decode(
-#             token,
-#             key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
-#             algorithms="HS256",
-#         )
+def decode_jwt():
+	data = request.headers["Authorization"]
+	scheme, token = data.split()
+	decoded_token = jwt.decode(
+            token,
+            key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
+            algorithms="HS256",
+        )
+	if decoded_token["id"]:
+		return decoded_token
+	else:
+		return False
 
 
 
-
-# def decode_jwt(member_id: int, token: str):
-# 	payload= {'user_id':member_id}
-# 	key = '7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0'
-# 	try:
-# 		dncoded_jwt = jwt.decode(token, key, algorithms="HS256")
-# 		print(decode_jwt)
-# 	except jwt.PyJWTError:
-# 		print('token解析失敗')
-# 		return False
-# 	else:
-# 		print(dncoded_jwt)
-# 		exp = int(dncoded_jwt.pop('exp'))
-# 		if time.time() > exp :
-# 			print('已失效')
-# 			return False
-# 	return payload == dncoded_jwt
-
+def connect_to_pool():
+	cnxpool = mysql.connector.pooling.MySQLConnectionPool(
+		user="root",
+		password="root123",
+		host="localhost",
+		database="TripSite",
+		pool_name="mypool",
+		pool_size=5,
+	)
+	return cnxpool

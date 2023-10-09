@@ -12,27 +12,14 @@ load_dotenv()
 partner_key = os.getenv('partner_key')
 
 order_system = Blueprint("order_system", __name__)
-cnxpool = mysql.connector.pooling.MySQLConnectionPool(
-    user="root",
-    password="root123",
-    host="localhost",
-    database="TripSite",
-    pool_name="mypool",
-    pool_size=5,
-)
+cnxpool=connect_to_pool()
 
 
 @order_system.route("/api/orders", methods=["POST"])
 def order_booking():
     try:
         data = request.get_json()
-        data_token = request.headers["Authorization"]
-        scheme, token = data_token.split()
-        decoded_token = jwt.decode(
-            token,
-            key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
-            algorithms="HS256",
-        )
+        decoded_token=decode_jwt()
 
         if decoded_token["id"] != None:
             con = cnxpool.get_connection()
@@ -148,13 +135,7 @@ def thankyou(orderNumber):
     try:
         con = cnxpool.get_connection()
         cursor = con.cursor(dictionary=True)
-        data_token = request.headers["Authorization"]
-        scheme, token = data_token.split()
-        decoded_token = jwt.decode(
-            token,
-            key="7451B034BF2BD44049C4879E2CD2A5E501061F55B30BFE734F319032A137EAD0",
-            algorithms="HS256",
-        )
+        decoded_token=decode_jwt()
         print(decoded_token["id"])
         if decoded_token["id"] != None:
             cursor.execute("select * from trip where number = %s", (orderNumber,))
