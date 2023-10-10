@@ -3,12 +3,13 @@ from datetime import *
 import mysql.connector
 import jwt
 from modules import *
+from model import *
 import datetime
 import requests
 import os
 from dotenv import *
-
 load_dotenv()
+
 partner_key = os.getenv('partner_key')
 
 order_system = Blueprint("order_system", __name__)
@@ -22,52 +23,15 @@ def order_booking():
         decoded_token=decode_jwt()
 
         if decoded_token["id"] != None:
-            con = cnxpool.get_connection()
-            cursor = con.cursor(dictionary=True)
-            # 建立訂單編號
-            now = datetime.datetime.now()
-            daytime = datetime.datetime.strptime(str(now), "%Y-%m-%d %H:%M:%S.%f")
-            order_id = daytime.strftime("%Y%m%d%H%M%S")
-            if (
-                data["order"]["contact"]["orderEmail"]
-                and data["order"]["contact"]["orderName"]
-                and data["order"]["contact"]["orderPhone"]
-            ):
-                member_id = decoded_token["id"]
-                name = data["order"]["contact"]["orderName"]
-                email = data["order"]["contact"]["orderEmail"]
-                phone = data["order"]["contact"]["orderPhone"]
-                total_price = int(data["order"]["totalPrice"])
-
-                order_id = int(order_id)
-
-                cursor.execute(
-                    "INSERT INTO orders(member_id, number, name, email, phone, total_price) VALUES(%s,%s,%s,%s,%s,%s)",
-                    (member_id, order_id, name, email, phone, total_price),
-                )
-                con.commit()
-                # print(data)
-            for i in range(len(data["order"]["trip"]["attraction"])):
-                result = [
-                    decoded_token["id"],
-                    order_id,
-                    data["order"]["trip"]["attraction"][i]["id"],
-                    data["order"]["trip"]["attraction"][i]["date"],
-                    data["order"]["trip"]["attraction"][i]["time"],
-                    data["order"]["trip"]["attraction"][i]["price"],
-                    data["order"]["trip"]["attraction"][i]["address"],
-                    data["order"]["trip"]["attraction"][i]["image"],
-                ]
-                cursor.execute(
-                    "INSERT INTO trip(member_id, number, attractionId, date, time, price, address, image_url) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",
-                    result,
-                )
-                con.commit()
+            decoded_token_id = decoded_token["id"]
+            order_id = order_insert(data,decoded_token_id)
+            print(order_id)
+            order_trip_insert(data,decoded_token_id,order_id)
 
             url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
             orderInfo = {
                 "prime": data["prime"],
-                "partner_key": partner_key,
+                "partner_key": "partner_qDoypNWTSpZAMgNG4jVQcyF94pZuBvpvJbSmXqetlzy2Eqpmu5hAl38H",
                 "merchant_id": "KilopaNye_CTBC",
                 "details": "TapPay Test",
                 "amount": data["order"]["totalPrice"],
@@ -81,23 +45,13 @@ def order_booking():
             }
             Headers = {
                 "Content-Type": "application/json",
-                "x-api-key": partner_key,
+                "x-api-key": "partner_qDoypNWTSpZAMgNG4jVQcyF94pZuBvpvJbSmXqetlzy2Eqpmu5hAl38H",
             }
             tappay_response = requests.post(url, headers=Headers, json=orderInfo).json()
             print(tappay_response)
             if tappay_response["status"] == 0:
                 option = ["已付款", order_id]
-                cursor.execute(
-                    "update trip set status=%s where number=%s",
-                    option,
-                )
-                con.commit()
-                # 成功後刪除購物車資料
-                cursor.execute(
-                    "delete from booking where id = %s",
-                    (data["order"]["trip"]["attraction"][i]["id"],),
-                )
-                con.commit()
+                tappay_ok(option,data)
                 return {
                     "data": {
                         "number": order_id,
@@ -109,8 +63,7 @@ def order_booking():
                 }, 200
             else:
                 # 失敗後刪除訂購資料
-                cursor.execute("delete from trip where number = %s", (order_id,))
-                con.commit()
+                tappay_false_delete_order(order_id)
                 return {
                     "data": {
                         "number": order_id,
@@ -125,9 +78,6 @@ def order_booking():
     except Exception as err:
         print(err)
         return {"error": True, "message": "伺服器內部錯誤"}, 500
-    finally:
-        cursor.close()
-        con.close()
 
 
 @order_system.route("/api/orders/<orderNumber>", methods=["GET"])

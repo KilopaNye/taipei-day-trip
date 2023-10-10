@@ -13,7 +13,6 @@ cnxpool=connect_to_pool()
 def attraction_(attractionId):
 	try:
 		result = from_id_get_attractions(attractionId)
-		print(result)
 		if result:
 			response = make_response(jsonify({"data":result}), 200)
 			response.headers["Content-type"] = "application/json"
