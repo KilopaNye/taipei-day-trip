@@ -3,9 +3,7 @@ let url = window.location.pathname;
 let length_URL = url.split("/");
 let attraction_id = length_URL.pop();
 
-function GoHome() {
-    window.location.href = "/";
-};
+
 
 function loginBlock(){
     let loginBg = document.querySelector(".login-class");

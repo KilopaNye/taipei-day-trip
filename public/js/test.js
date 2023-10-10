@@ -301,7 +301,7 @@ class Bob extends Person{
         this.age = age;
     }
 
-    speek(){
+    speak(){
         console.log("hi")
     }
 }

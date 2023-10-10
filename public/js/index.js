@@ -17,9 +17,6 @@ function GoBooking(set_id) {
     console.log(id)
     window.location.href = `/attraction/${id}`
 }
-function GoHome() {
-    window.location.href = "/"
-}
 
 function loginBlock(){
     let loginBg = document.querySelector(".login-class");

@@ -235,9 +235,6 @@ function checkNum(){
     }
 }
 
-function GoHome() {
-    window.location.href = "/";
-};
 
 function loginBlock() {
     let loginBg = document.querySelector(".login-class");

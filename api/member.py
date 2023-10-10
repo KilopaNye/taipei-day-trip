@@ -38,7 +38,7 @@ def register():
 		con.close()
 
 @member_system.route("/api/user/auth", methods=["GET"])
-def userLoing():
+def userLogin():
 	try:
 		decoded_token=decode_jwt()
 		if decoded_token:
