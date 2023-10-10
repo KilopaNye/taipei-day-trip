@@ -7,8 +7,8 @@ import datetime
 import requests
 import os
 from dotenv import *
-load_dotenv()
 
+load_dotenv()
 partner_key = os.getenv('partner_key')
 
 order_system = Blueprint("order_system", __name__)
@@ -67,7 +67,7 @@ def order_booking():
             url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
             orderInfo = {
                 "prime": data["prime"],
-                "partner_key": "partner_qDoypNWTSpZAMgNG4jVQcyF94pZuBvpvJbSmXqetlzy2Eqpmu5hAl38H",
+                "partner_key": partner_key,
                 "merchant_id": "KilopaNye_CTBC",
                 "details": "TapPay Test",
                 "amount": data["order"]["totalPrice"],
@@ -81,7 +81,7 @@ def order_booking():
             }
             Headers = {
                 "Content-Type": "application/json",
-                "x-api-key": "partner_qDoypNWTSpZAMgNG4jVQcyF94pZuBvpvJbSmXqetlzy2Eqpmu5hAl38H",
+                "x-api-key": partner_key,
             }
             tappay_response = requests.post(url, headers=Headers, json=orderInfo).json()
             print(tappay_response)
