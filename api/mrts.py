@@ -1,8 +1,7 @@
 from flask import *
 from datetime import *
-import mysql.connector
-import jwt
 from modules import *
+from model import *
 
 mrts_system = Blueprint("mrts_system", __name__)
 
@@ -11,10 +10,7 @@ cnxpool=connect_to_pool()
 @mrts_system.route("/api/mrts")
 def mrt():
 	try:
-		con=cnxpool.get_connection()
-		cursor = con.cursor(dictionary=True) 
-		cursor.execute("SELECT mrt FROM attractions GROUP BY mrt ORDER BY COUNT(mrt) DESC LIMIT 40")
-		data = cursor.fetchall()
+		data = get_mrts()
 		response=make_response(jsonify({"data":[item['mrt'] for item in data]}), 200)
 		response.headers["Content-Type"] = "application/json"
 		return response
@@ -22,6 +18,3 @@ def mrt():
 		response=make_response(jsonify({"error": True,"message": "伺服器內部錯誤"}), 500)
 		response.headers["Content-Type"] = "application/json"
 		return response
-	finally:
-		cursor.close()
-		con.close()

@@ -161,3 +161,83 @@ def tappay_false_delete_order(order_id):
     cursor.close()
     con.close()
     return True
+
+def get_mrts():
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True) 
+    cursor.execute("SELECT mrt FROM attractions GROUP BY mrt ORDER BY COUNT(mrt) DESC LIMIT 40")
+    data = cursor.fetchall()
+    cursor.close()
+    con.close()
+    return data
+
+
+def found_user(data):
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    cursor.execute("SELECT email from members WHERE email = %s",(data['email'],))
+    source = cursor.fetchone()
+    cursor.close()
+    con.close()
+    return source
+
+def register(data):
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    cursor.execute("INSERT INTO members(username, email, password) values(%s, %s, %s)",(data['name'],data['email'],data['password']))
+    cursor.close()
+    con.close()
+    con.commit()
+    return True
+
+def get_user_info(data):
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    cursor.execute("SELECT id,email,username,password from members WHERE email = %s and password= %s",(data['email'], data['password']))
+    source = cursor.fetchone()
+    cursor.close()
+    con.close()
+    return source
+
+
+def get_booking(decoded_token_id):
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    cursor.execute("SELECT * from booking WHERE member_id = %s",(decoded_token_id,))
+    source = cursor.fetchall()
+    cursor.close()
+    con.close()
+    return source
+
+def get_booking_attractions(source):
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    x=0
+    data={}
+    for i in source:
+        cursor.execute("SELECT attractions.id,attractions.name,attractions.address,images.path from attractions inner join images on attractions.id = images.image_id WHERE attractions.id = %s",(i['attractionId'],))
+        sources = cursor.fetchall()
+        sourseOne = ({"attraction":sources[0],"date":i["date"],"time":i["time"],"price":i["price"],"id":i["id"]})
+        data[x]=sourseOne
+        x+=1
+    cursor.close()
+    con.close()
+    return data
+
+def insert_booking_info(decoded_token_id,data):
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    cursor.execute("INSERT INTO booking(member_id,attractionId,date,time,price) VALUES(%s,%s,%s,%s,%s)",(decoded_token_id,data['attractionId'],data["date"],data["time"],data["price"]))
+    con.commit()
+    cursor.close()
+    con.close()
+    return True
+
+def delete_booking_info(decoded_token_id,data):
+    con=cnxpool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    cursor.execute("DELETE FROM booking WHERE member_id=%s AND id=%s",(decoded_token_id,data["id"]))
+    con.commit()
+    cursor.close()
+    con.close()
+    return True

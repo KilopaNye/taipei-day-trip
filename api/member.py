@@ -1,7 +1,7 @@
 from flask import *
 from datetime import *
-import mysql.connector
 from modules import *
+from model import *
 from flask import Blueprint
 
 
@@ -12,19 +12,14 @@ cnxpool=connect_to_pool()
 def register():
 	try:
 		data=request.get_json()
-		con=cnxpool.get_connection()
-		cursor = con.cursor(dictionary=True)
-		cursor.execute("SELECT email from members WHERE email = %s",(data['email'],))
-		source = cursor.fetchone()
+		source = found_user(data)
 		if source:
 			return {
 			"error": True,
 			"message": "註冊失敗，重複註冊的Email或其他原因"
 			}, 400
 		else:
-			cursor.execute("INSERT INTO members(username, email, password) values(%s, %s, %s)",
-				(data['name'],data['email'],data['password']))
-			con.commit()
+			register(data)
 			return {
 				"ok": True
 			}, 200
@@ -33,10 +28,7 @@ def register():
 			"error": True,
 			"message": "伺服器內部錯誤"
 		}, 500
-	finally:
-		cursor.close()
-		con.close()
-
+	
 @member_system.route("/api/user/auth", methods=["GET"])
 def userLogin():
 	try:
@@ -58,10 +50,7 @@ def userLogin():
 def login():
 	try:
 		data=request.get_json()
-		con=cnxpool.get_connection()
-		cursor = con.cursor(dictionary=True)
-		cursor.execute("SELECT id,email,username,password from members WHERE email = %s and password= %s",(data['email'], data['password']))
-		source = cursor.fetchone()
+		source = get_user_info(data)
 		if source:
 			return {
 				"token": jwt_make(source['id'],source['username'],source['email'])
@@ -76,6 +65,3 @@ def login():
 			"error": True,
 			"message": "伺服器內部錯誤"
 		}, 500
-	finally:
-		cursor.close()
-		con.close()

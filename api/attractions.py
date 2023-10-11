@@ -1,7 +1,5 @@
 from flask import *
 from datetime import *
-import mysql.connector
-import jwt
 from modules import *
 from model import *
 
@@ -40,6 +38,7 @@ def attractions():
 			else:
 				nextpage = page+1
 			if data:
+				print(data)
 				response = make_response(jsonify({"nextPage":nextpage,"data":results}), 200)
 				response.headers["Content-type"] = "application/json"
 				return response

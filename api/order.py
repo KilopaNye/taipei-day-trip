@@ -1,10 +1,7 @@
 from flask import *
 from datetime import *
-import mysql.connector
-import jwt
 from modules import *
 from model import *
-import datetime
 import requests
 import os
 from dotenv import *
